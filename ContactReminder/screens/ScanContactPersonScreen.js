@@ -1,24 +1,88 @@
-import * as React from 'react';
-import { Image, Platform, StyleSheet, Text, TouchableOpacity, View, SectionList } from 'react-native';
+import React, { useState, useEffect, Component } from 'react';
+import { Alert, Linking, Dimensions, LayoutAnimation, Text, View, StatusBar, StyleSheet, TouchableOpacity, Button } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import * as WebBrowser from 'expo-web-browser';
-//import QRCode from 'react-native-qrcode';
+import * as Permissions from 'expo-permissions';
+import { BarCodeScanner } from 'expo-barcode-scanner';
+import Barcode from 'react-native-barcode-builder';
 
 import { MonoText } from '../components/StyledText';
 
-export default class ScanContactPersonScreen extends React.Component {
+export default class ScanContactPersonScreen extends Component {
+  state = {
+    hasPermission: null,
+    scanned: false,
+    scanning: false,
+  }
 
+  async componentDidMount() {
+    const { status } = await Permissions.askAsync(Permissions.CAMERA);
+    this.setState({ hasPermission: status === 'granted' });
+  }
 
-  render() {
-    return (
-      <View style={styles.container}>
-        <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
-          <View style={styles.getStartedContainer}>
-            <Text style={styles.getStartedText}>testWillkommen bei CoronaTracking! Bitte scanne den QR-Code deiner Kontaktperson ein, um dich zu verbinden.</Text>
-          </View>
-        </ScrollView>
+    handleBarCodeScanned ({ type, data }) {
+      this.setState({
+        scanned: true
+      });
+      alert(`Bar code with type ${type} and data ${data} has been scanned!`);
+    };
+
+  barcodescan() {
+    const {
+      hasCameraPermission, 
+      scanned
+    } = this.state;
+
+    if (hasCameraPermission === null) {
+      return <Text> Requesting for camera permission </Text>;
+    }
+    if (hasCameraPermission === false) {
+      return <Text> No access to camera </Text>;
+    }
+    return ( 
+    <View style = {
+        {
+          flex: 1,
+          flexDirection: 'column',
+          justifyContent: 'flex-end',
+        }
+      }>
+      <BarCodeScanner onBarCodeScanned = { scanned ? undefined : this.handleBarCodeScanned }
+      style = { StyleSheet.absoluteFillObject }/>
+      {
+        scanned && ( <Button
+          title = { 'Tap to Scan Again' }
+          onPress = {
+            () => this.setState({
+              scanned: false
+            })
+          }/>
+        )
+      } 
+      <Button
+        title="Stop scanning"
+        onPress={() => this.setState({ scanning: false })} />
       </View>
     );
+  }
+
+  render() {
+    const {
+      scanning,
+    } = this.state;
+
+    if (scanning) {
+      return this.barcodescan();
+    }
+
+    return (
+      <View>
+        <Barcode value="Hello World" format="CODE128" />
+        <Button
+          title="Press me to scan code"
+          onPress={() => this.setState({ scanning: true })} />
+      </View>
+    )
   }
 }
 
