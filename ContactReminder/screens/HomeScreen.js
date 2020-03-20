@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {Image, Platform, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {Image, Platform, StyleSheet, Text, TouchableOpacity, View, Alert, Button} from 'react-native';
 import {ScrollView} from 'react-native-gesture-handler';
 
 import {MonoText} from '../components/StyledText';
@@ -16,6 +16,11 @@ export default class HomeScreen extends React.Component {
             <Text style={styles.getStartedText}>Willkommen bei CoronaTracking!</Text>
             <Text style={styles.getStartedText}>TODO: Aktuellen Status des Users anzeigen (Kontaktperson oder
               safe)</Text>
+            <Button 
+              style={styles.infectedButton}
+              title={"I am Infected"}
+              onPress={() => Alert.alert("Abfrage, ob wirklich infiziert hiert")}
+            />
           </View>
         </ScrollView>
       </View>
@@ -31,6 +36,15 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
+  },
+  infectedButton: {
+    width: 100,
+    borderRadius: 5,
+    padding: 10,
+    color: "#f03434",
+    borderColor: "#f03434",
+    borderWidth: 2,
+
   },
   developmentModeText: {
     marginBottom: 20,
