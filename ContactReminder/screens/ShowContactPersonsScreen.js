@@ -14,7 +14,7 @@ export default function ShowContactPersonsScreen() {
   );
 }
 
-async function  fetchData(id){
+async function fetchData(id){
   const test = await contactPersonsRepository.get(id);
 }
 
