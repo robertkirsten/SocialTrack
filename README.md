@@ -1,3 +1,4 @@
 # ToDo
 - Idee finden
-- Rohan rauswerfen
+# Links
+https://trello.com/b/bGuF3fPl/coronahack
