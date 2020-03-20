@@ -76,11 +76,15 @@ export default class ScanContactPersonScreen extends Component {
     }
 
     return (
-      <View>
-        <Barcode value="Hello World" format="CODE128" />
+      <View style={styles.container}>
+        <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
+          <View style={styles.getStartedContainer}>
+          <Barcode value="Hello World" format="CODE128" />
         <Button
           title="Press me to scan code"
           onPress={() => this.setState({ scanning: true })} />
+          </View>
+        </ScrollView>
       </View>
     )
   }

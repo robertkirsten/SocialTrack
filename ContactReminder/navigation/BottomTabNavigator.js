@@ -3,6 +3,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import TabBarIcon from '../components/TabBarIcon';
 import ScanContactPersonScreen from '../screens/ScanContactPersonScreen';
 import ShowContactPersonsScreen from '../screens/ShowContactPersonsScreen';
+import HomeScreen from "../screens/HomeScreen";
 
 const BottomTab = createBottomTabNavigator();
 const INITIAL_ROUTE_NAME = 'Home';
@@ -16,19 +17,27 @@ export default function BottomTabNavigator({ navigation, route }) {
   return (
     <BottomTab.Navigator initialRouteName={INITIAL_ROUTE_NAME}>
       <BottomTab.Screen
-        name="Home"
+        name="ScanContactPersonScreen"
         component={ScanContactPersonScreen}
         options={{
           title: 'Kontaktperson scannen',
-          tabBarIcon: ({ focused }) => <TabBarIcon focused={focused} name="md-camera" />,
+          tabBarIcon: ({ focused }) => <TabBarIcon focused={focused} name="md-person-add" />,
         }}
       />
       <BottomTab.Screen
-        name="Links"
+        name="HomeScreen"
+        component={HomeScreen}
+        options={{
+          title: 'Übersicht',
+          tabBarIcon: ({ focused }) => <TabBarIcon focused={focused} name="ios-information" />,
+        }}
+      />
+      <BottomTab.Screen
+        name="ShowContactPersonsScreen"
         component={ShowContactPersonsScreen}
         options={{
           title: 'Meine Kontakte',
-          tabBarIcon: ({ focused }) => <TabBarIcon focused={focused} name="md-person" />,
+          tabBarIcon: ({ focused }) => <TabBarIcon focused={focused} name="md-people" />,
         }}
       />
     </BottomTab.Navigator>

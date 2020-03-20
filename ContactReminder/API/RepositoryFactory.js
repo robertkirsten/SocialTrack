@@ -1,7 +1,8 @@
 import ContactPersonsRepository from "./apiCalls/ContactPersonsRepository"
 
 const repositories = {
-    contactPersons: ContactPersonsRepository
+    contactPersons: ContactPersonsRepository,
+    infection: ContactPersonsRepository
 }
 
 export const RepositoryFactory = {
