@@ -1,7 +1,7 @@
-import ContactPersons from "./apiCalls/ContactPersonsRepository"
+import ContactPersonsRepository from "./apiCalls/ContactPersonsRepository"
 
 const repositories = {
-    contactPersons: ContactPersons
+    contactPersons: ContactPersonsRepository
 }
 
 export const RepositoryFactory = {

@@ -1,6 +1,6 @@
 import Repository from "../repository";
 
-const resource = "/posts";
+const resource = "/contactPersons";
 
 export default ({
 

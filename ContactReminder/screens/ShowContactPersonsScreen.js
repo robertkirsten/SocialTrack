@@ -1,17 +1,20 @@
-import * as React from 'react';
+//import * as React, , { Component } from 'react';
+import React, {Component} from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import * as WebBrowser from 'expo-web-browser';
 import { RectButton, ScrollView } from 'react-native-gesture-handler';
 import {RepositoryFactory} from './../API/RepositoryFactory'
-const contactPersonsRepository = RepositoryFactory.get('posts');
+const contactPersonsRepository = RepositoryFactory.get('contactPersons');
 
-export default function ShowContactPersonsScreen() {
-  return (
-    <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
-      <Text>Coming soon!</Text>
-    </ScrollView>
-  );
+export default class ShowContactPersonsScreen extends Component {
+  render() {
+    return (
+        <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
+          <Text>Coming soon!</Text>
+        </ScrollView>
+    );
+  }
 }
 
 async function fetchData(id){
