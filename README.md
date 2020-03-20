@@ -15,14 +15,14 @@ Man kann auch die App mit NFC nutzen (siehe Bluetooth).
 
 Geht man in einen Laden, fällt das der App auf und sie fragt, ob man in diesem Laden war anschließend kann der Standort mit Menschen, die zur gleichen Zeit im Laden war gekoppelt werden.
 
-##Features
+## Features
 
 * Nachverfolgung von Infektionsketten
 * Heatmap von Coronaausbreitung
 * Punktesystem in der Reduzierung von sozialen Kontakten mit Wettbewerb (Lukas gewinnt)
 * schnellere Maßnahmen
 
-##Technische Umsetzung
+## Technische Umsetzung
 
 
 ## ToDo
