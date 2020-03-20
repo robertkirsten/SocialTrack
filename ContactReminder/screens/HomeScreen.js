@@ -34,7 +34,9 @@ export default class HomeScreen extends React.Component {
 async function fetchData(){
   //User daten an den Call übergeben
   /*
-  infectionCall.get()
+  Hier uid und die Personen die er kontaktiert hat, die lokal gespeichert sind, uploaden.
+
+  infectionCall.get(user, contacted)
   .then(res => {
     console.log("Infection succesfully added");
     console.log(res.data);
