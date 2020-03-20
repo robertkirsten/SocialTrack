@@ -3,6 +3,8 @@ import {Image, Platform, StyleSheet, Text, TouchableOpacity, View, Alert, Button
 import {ScrollView} from 'react-native-gesture-handler';
 
 import {MonoText} from '../components/StyledText';
+import {ApiFactory} from '../API/RepositoryFactory';
+const infectionCall = RepositoryFactory.get('infection');
 
 export default class HomeScreen extends React.Component {
 
@@ -19,13 +21,26 @@ export default class HomeScreen extends React.Component {
             <Button 
               style={styles.infectedButton}
               title={"I am Infected"}
-              onPress={() => Alert.alert("Abfrage, ob wirklich infiziert hiert")}
+              onPress={() => fetchData()}
+                //Alert.alert("Abfrage, ob wirklich infiziert hier Button einfügen der api call macht")}
             />
           </View>
         </ScrollView>
       </View>
     );
   }
+}
+
+async function fetchData(){
+  //User daten an den Call übergeben
+  infectionCall.get()
+  .then(res => {
+    console.log("Infection succesfully added");
+    console.log(res.data);
+  })
+  .catch(error => {
+    console.log("Error occured: ", error);
+  })
 }
 
 HomeScreen.navigationOptions = {
