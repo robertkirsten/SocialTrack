@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import TabBarIcon from '../components/TabBarIcon';
-import HomeScreen from '../screens/HomeScreen';
-import LinksScreen from '../screens/LinksScreen';
+import ScanContactPersonScreen from '../screens/ScanContactPersonScreen';
+import ShowContactPersonsScreen from '../screens/ShowContactPersonsScreen';
 
 const BottomTab = createBottomTabNavigator();
 const INITIAL_ROUTE_NAME = 'Home';
@@ -17,7 +17,7 @@ export default function BottomTabNavigator({ navigation, route }) {
     <BottomTab.Navigator initialRouteName={INITIAL_ROUTE_NAME}>
       <BottomTab.Screen
         name="Home"
-        component={HomeScreen}
+        component={ScanContactPersonScreen}
         options={{
           title: 'Kontaktperson scannen',
           tabBarIcon: ({ focused }) => <TabBarIcon focused={focused} name="md-camera" />,
@@ -25,7 +25,7 @@ export default function BottomTabNavigator({ navigation, route }) {
       />
       <BottomTab.Screen
         name="Links"
-        component={LinksScreen}
+        component={ShowContactPersonsScreen}
         options={{
           title: 'Meine Kontakte',
           tabBarIcon: ({ focused }) => <TabBarIcon focused={focused} name="md-person" />,
@@ -36,12 +36,12 @@ export default function BottomTabNavigator({ navigation, route }) {
 }
 
 function getHeaderTitle(route) {
-  const routeName = route.state?.routes[route.state.index]?.name ?? INITIAL_ROUTE_NAME;
+  /*const routeName = route.state?.routes[route.state.index]?.name ?? INITIAL_ROUTE_NAME;
 
   switch (routeName) {
-    case 'Home':
-      return 'How to get started';
-    case 'Links':
+    case 'Home':*/
+      return 'CoronaTracking';
+    /*case 'Links':
       return 'Links to learn more';
-  }
+  }*/
 }

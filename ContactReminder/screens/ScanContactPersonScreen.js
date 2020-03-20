@@ -5,19 +5,19 @@ import * as WebBrowser from 'expo-web-browser';
 
 import { MonoText } from '../components/StyledText';
 
-export default function HomeScreen() {
+export default function ScanContactPersonScreen() {
   return (
     <View style={styles.container}>
       <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
         <View style={styles.getStartedContainer}>
-          <Text style={styles.getStartedText}>Willkommen bei ContactReminder!</Text>
+          <Text style={styles.getStartedText}>Willkommen bei CoronaTracking! Bitte scanne den QR-Code deiner Kontaktperson ein, um dich zu verbinden.</Text>
         </View>
       </ScrollView>
     </View>
   );
 }
 
-HomeScreen.navigationOptions = {
+ScanContactPersonScreen.navigationOptions = {
   header: null,
 };
 
