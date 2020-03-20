@@ -1,20 +1,21 @@
 import * as React from 'react';
-import { Image, Platform, StyleSheet, Text, TouchableOpacity, View, SectionList } from 'react-native';
-import { ScrollView } from 'react-native-gesture-handler';
-import * as WebBrowser from 'expo-web-browser';
-//import QRCode from 'react-native-qrcode';
+import {Image, Platform, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {ScrollView} from 'react-native-gesture-handler';
 
-import { MonoText } from '../components/StyledText';
+import {MonoText} from '../components/StyledText';
 
-export default class ScanContactPersonScreen extends React.Component {
+export default class HomeScreen extends React.Component {
 
 
   render() {
     return (
       <View style={styles.container}>
+
         <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
           <View style={styles.getStartedContainer}>
-            <Text style={styles.getStartedText}>TODO: Scanner einbinden</Text>
+            <Text style={styles.getStartedText}>Willkommen bei CoronaTracking!</Text>
+            <Text style={styles.getStartedText}>TODO: Aktuellen Status des Users anzeigen (Kontaktperson oder
+              safe)</Text>
           </View>
         </ScrollView>
       </View>
@@ -22,7 +23,7 @@ export default class ScanContactPersonScreen extends React.Component {
   }
 }
 
-ScanContactPersonScreen.navigationOptions = {
+HomeScreen.navigationOptions = {
   header: null,
 };
 
@@ -82,7 +83,7 @@ const styles = StyleSheet.create({
     ...Platform.select({
       ios: {
         shadowColor: 'black',
-        shadowOffset: { width: 0, height: -3 },
+        shadowOffset: {width: 0, height: -3},
         shadowOpacity: 0.1,
         shadowRadius: 3,
       },
