@@ -3,6 +3,8 @@ import { StyleSheet, Text, View } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import * as WebBrowser from 'expo-web-browser';
 import { RectButton, ScrollView } from 'react-native-gesture-handler';
+import {RepositoryFactory} from './../API/RepositoryFactory'
+const contactPersonsRepository = RepositoryFactory.get('posts');
 
 export default function ShowContactPersonsScreen() {
   return (
@@ -10,6 +12,10 @@ export default function ShowContactPersonsScreen() {
       <Text>Coming soon!</Text>
     </ScrollView>
   );
+}
+
+async function  fetchData(id){
+  const test = await contactPersonsRepository.get(id);
 }
 
 function OptionButton({ icon, label, onPress, isLastOption }) {
