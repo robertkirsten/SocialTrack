@@ -4,7 +4,7 @@ import {ScrollView} from 'react-native-gesture-handler';
 
 import {MonoText} from '../components/StyledText';
 import {ApiFactory} from '../API/RepositoryFactory';
-const infectionCall = RepositoryFactory.get('infection');
+//const infectionCall = RepositoryFactory.get('infection');
 
 export default class HomeScreen extends React.Component {
 
@@ -33,6 +33,7 @@ export default class HomeScreen extends React.Component {
 
 async function fetchData(){
   //User daten an den Call übergeben
+  /*
   infectionCall.get()
   .then(res => {
     console.log("Infection succesfully added");
@@ -41,6 +42,7 @@ async function fetchData(){
   .catch(error => {
     console.log("Error occured: ", error);
   })
+   */
 }
 
 HomeScreen.navigationOptions = {
