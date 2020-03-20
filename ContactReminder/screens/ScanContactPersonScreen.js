@@ -16,19 +16,22 @@ import * as WebBrowser from 'expo-web-browser';
 import * as Permissions from 'expo-permissions';
 import {BarCodeScanner} from 'expo-barcode-scanner';
 import Barcode from 'react-native-barcode-builder';
-
-import {MonoText} from '../components/StyledText';
+import DeviceInfo from 'react-native-device-info';
 
 export default class ScanContactPersonScreen extends Component {
   state = {
     hasPermission: null,
     scanned: false,
     scanning: false,
+    deviceId: '',
   };
 
   async componentDidMount() {
     const {status} = await Permissions.askAsync(Permissions.CAMERA);
     this.setState({hasPermission: status === 'granted'});
+
+    var id = DeviceInfo.getUniqueID();
+    this.setState({ deviceId: id, });
   }
 
   handleBarCodeScanned = ({type, data}) => {
@@ -50,6 +53,7 @@ export default class ScanContactPersonScreen extends Component {
     if (hasCameraPermission === false) {
       return <Text> No access to camera </Text>;
     }
+
     return (
       <View style={
         {
@@ -90,9 +94,13 @@ export default class ScanContactPersonScreen extends Component {
       <View style={styles.container}>
         <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
           <View style={styles.getStartedContainer}>
-            <Barcode value="Hello World" format="CODE128"/>
+            <Text>Dies ist dein persönlicher Code. Lass eine andere Person diesen Code scannen, um dich als Kontaktperson hinzuzufügen.</Text>
+            <Text>{deviceId}</Text>
+            <Barcode value={deviceId} format="CODE128"/>
+
+            <Text>Oder du scannst selbst den Code einer anderen Person.</Text>
             <Button
-              title="Press me to scan code"
+              title="Anderen Code scannen"
               onPress={() => this.setState({scanning: true})}/>
           </View>
         </ScrollView>
