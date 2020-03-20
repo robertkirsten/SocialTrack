@@ -35,6 +35,7 @@
     "react-native-gesture-handler": "~1.5.0",
     "react-native-qr-generator": "^1.0.4",
     "react-native-qrcode": "^0.2.7",
+    "react-native-qrcode-generator": "^1.1.0",
     "react-native-qrcode-scanner": "^1.4.0",
     "react-native-safe-area-context": "0.6.0",
     "react-native-screens": "2.0.0-alpha.12",

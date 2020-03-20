@@ -1,28 +1,20 @@
-import React, {useState, useEffect, Component} from 'react';
+import React, { Component } from 'react';
 import {
-  Alert,
-  Linking,
-  Dimensions,
-  LayoutAnimation,
   Text,
   View,
-  StatusBar,
   StyleSheet,
-  TouchableOpacity,
   Button
 } from 'react-native';
 import {ScrollView} from 'react-native-gesture-handler';
-import * as WebBrowser from 'expo-web-browser';
 import * as Permissions from 'expo-permissions';
 import {BarCodeScanner} from 'expo-barcode-scanner';
-import Barcode from 'react-native-barcode-builder';
+import QRCode from 'react-qr-code';
 
-import {MonoText} from '../components/StyledText';
+
 
 export default class ScanContactPersonScreen extends Component {
   state = {
     hasPermission: null,
-    scanned: false,
     scanning: false,
   };
 
@@ -32,16 +24,13 @@ export default class ScanContactPersonScreen extends Component {
   }
 
   handleBarCodeScanned = ({type, data}) => {
-    this.setState({
-      scanned: true
-    });
+    this.setState({ scanning: false })
     alert(`Bar code with type ${type} and data ${data} has been scanned!`);
   };
 
   barcodescan() {
     const {
       hasCameraPermission,
-      scanned
     } = this.state;
 
     if (hasCameraPermission === null) {
@@ -56,23 +45,14 @@ export default class ScanContactPersonScreen extends Component {
           flex: 1,
           flexDirection: 'column',
           justifyContent: 'flex-end',
-        }
+        } 
       }>
-        <BarCodeScanner onBarCodeScanned={scanned ? undefined : this.handleBarCodeScanned}
-                        style={StyleSheet.absoluteFillObject}/>
-        {
-          scanned && (<Button
-              title={'Tap to Scan Again'}
-              onPress={
-                () => this.setState({
-                  scanned: false
-                })
-              }/>
-          )
-        }
+        <BarCodeScanner 
+          onBarCodeScanned={ this.handleBarCodeScanned }
+          style={StyleSheet.absoluteFillObject}/>
         <Button
           title="Stop scanning"
-          onPress={() => this.setState({scanning: false})}/>
+          onPress={ () => this.setState({scanning: false}) }/>
       </View>
     );
   }
@@ -90,7 +70,7 @@ export default class ScanContactPersonScreen extends Component {
       <View style={styles.container}>
         <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
           <View style={styles.getStartedContainer}>
-            <Barcode value="Hello World" format="CODE128"/>
+            <QRCode value="test"/>
             <Button
               title="Press me to scan code"
               onPress={() => this.setState({scanning: true})}/>
