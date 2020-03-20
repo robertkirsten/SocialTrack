@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Image, Platform, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import * as WebBrowser from 'expo-web-browser';
-import QRCode from 'react-native-qrcode';
+//import QRCode from 'react-native-qrcode';
 
 import { MonoText } from '../components/StyledText';
 
@@ -12,11 +12,7 @@ export default class ScanContactPersonScreen extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <QRCode
-          value={"Input Person-ID here"}
-          size={200}
-          bgColor='purple'
-          fgColor='white' />
+
         <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
           <View style={styles.getStartedContainer}>
             <Text style={styles.getStartedText}>testWillkommen bei CoronaTracking! Bitte scanne den QR-Code deiner Kontaktperson ein, um dich zu verbinden.</Text>
