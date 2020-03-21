@@ -25,6 +25,10 @@ const infectedUser = RepositoryFactory.get('infectedUser');
 
 export default class HomeScreen extends React.Component {
 
+  componentWillUnmount() {
+
+  }
+
   state ={
     isInfected: true,
   };
@@ -70,8 +74,9 @@ export default class HomeScreen extends React.Component {
   }
 }
 
-async function postInfectionMethod(userId){
 
+
+async function postInfectionMethod(userId){
   return await infectedUser.postInfectedUser(5).then(res => {
     console.log("Infection succesfully added");
     Popup.show({
