@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "node index"
+    "test": "node index",
+    "lint": "eslint .",
+    "lint-fix": "eslint . --fix"
   },
   "author": "",
   "license": "ISC",
@@ -13,6 +15,10 @@
     "sqlite3": "^4.1.1"
   },
   "devDependencies": {
-    "eslint": "^6.8.0"
+    "eslint": "^6.8.0",
+    "eslint-config-airbnb-base": "^14.1.0",
+    "eslint-plugin-import": "^2.20.1",
+    "eslint-plugin-react": "^7.19.0",
+    "eslint-plugin-react-native": "^3.8.1"
   }
 }
