@@ -14,7 +14,7 @@ import SettingsScreen from './screens/SettingsScreen';
 
 const spaceMonoFont = require('./assets/fonts/SpaceMono-Regular.ttf');
 
-createStackNavigator();
+const Stack = createStackNavigator();
 
 export default function App(props) {
   const [isLoadingComplete, setLoadingComplete] = React.useState(false);

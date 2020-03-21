@@ -5,7 +5,7 @@ import ShowQRCodeScreen from '../screens/ShowQRCodeScreen';
 import ShowContactPersonsScreen from '../screens/ShowContactPersonsScreen';
 import HomeScreen from '../screens/HomeScreen';
 
-createBottomTabNavigator();
+const BottomTab = createBottomTabNavigator();
 
 export default function BottomTabNavigator({ navigation, route }) {
   // Set the header title on the parent stack navigator depending on the
