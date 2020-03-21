@@ -25,7 +25,7 @@ app.get('/', (req, res) => {
   });
 });
 
-app.post('/contacted', (req, res) => {
+app.post('/', (req, res) => {
   const { id1, id2 } = req.body;
 
   const sql = `INSERT INTO contact (person1id, person2id)

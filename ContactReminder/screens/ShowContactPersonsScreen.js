@@ -7,47 +7,31 @@ import { RectButton, ScrollView } from 'react-native-gesture-handler';
 import moment from 'moment';
 import { Popup } from 'popup-ui';
 import { RepositoryFactory } from '../API/RepositoryFactory';
+import Constants from 'expo-constants';
 
+const deviceID = Constants.deviceId;
 const contactedUsers = RepositoryFactory.get('contactedUsersRepository');
 
 export default class ShowContactPersonsScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      contactPersonsList: [
-        {
-          name: 'Johannes',
-          id: '2',
-          scan: 'qr',
-          timestamp: moment('20111031', 'YYYYMMDD'),
-        },
-        {
-          name: 'Jana',
-          id: '3',
-          scan: 'qr',
-          timestamp: moment().startOf('day'),
-        },
-        {
-          name: 'Tim',
-          id: '1',
-          scan: 'bluetooth',
-          timestamp: moment().startOf('hour'),
-        },
-      ],
       personNamesWithTitle: [],
     };
   }
 
   async componentDidMount() {
-    const { contactPersonsList } = this.state;
-
-    this.fetchData(contactPersonsList);
+    this.getContactedUsers();
   }
 
-  async getcontactedUsers(userId) {
-    return contactedUsers.getUsers(userId).then((res) => {
-      console.log('Fetched successfully all contacted Users');
-      console.log(res.data);
+  getContactedUsers() {
+    return contactedUsers.getUsers(deviceID)
+    .then((res) => {
+      for (const person of res.data) {
+        person.time = moment(person.time);
+      }
+      this.setState({ personNamesWithTitle: this.transformData(res.data) });
+
     })
       .catch((error) => {
         Popup.show({
@@ -60,10 +44,7 @@ export default class ShowContactPersonsScreen extends React.Component {
       });
   }
 
-  // async ?
-  fetchData(contactPersonsList, userId) {
-    // const persons = this.getcontactedUsers(userId);
-    // exchange this for API-Call
+  transformData(contactPersonsList) {
     const persons = contactPersonsList.sort((a, b) => a.timestamp > b.timestamp);
     let currentDate = '';
     const personNamesWithTitle = [];
@@ -79,16 +60,13 @@ export default class ShowContactPersonsScreen extends React.Component {
         });
       }
 
-      personNamesWithTitle[personNamesWithTitle.length - 1].data.push(person.name);
+      personNamesWithTitle[personNamesWithTitle.length - 1].data.push(`${person.firstname} ${person.lastname}`);
     }
 
-    this.setState({ personNamesWithTitle });
     return personNamesWithTitle;
   }
 
-  OptionButton({
-    icon, label, onPress, isLastOption,
-  }) {
+  OptionButton({ icon, label, onPress, isLastOption, }) {
     return (
       <RectButton style={[styles.option, isLastOption && styles.lastOption]} onPress={onPress}>
         <View style={{ flexDirection: 'row' }}>
