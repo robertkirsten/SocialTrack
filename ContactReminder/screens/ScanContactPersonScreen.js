@@ -39,15 +39,18 @@ export default class ScanContactPersonScreen extends Component {
       console.log("Fetched successfully all contacted Users");
       console.log(res.data);
       */
-    Alert.alert("TEST", 'MEssage',[{text: 'OK', onPress: () => console.log('OK Pressed')},]);
+    Alert.alert("Erfolg!", 'QR-Code wurde erfolgreich gescannt!',[{text: 'OK', onPress: () => console.log('OK Pressed')},]);
 
     } catch (error) {
+      /*
       Popup.show({
         type: 'Danger',
         callback: () => Popup.hide(),
         title: 'Download failed',
         textBody: 'Sorry! Could not get your recent(ly) contacted persons!',
       });
+      */
+      Alert.alert("Problem!", 'Bitte den QR-Code erneut scannen!',[{text: 'OK', onPress: () => console.log('OK Pressed')},]);
       console.log("Error occured: ", error);
     }
   }

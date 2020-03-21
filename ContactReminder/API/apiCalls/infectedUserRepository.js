@@ -6,11 +6,13 @@ export default ({
   postInfectedUser(userId) {
     return Repository.post(resource, {
       id: userId,
+      infected: 1,
     });
   },
-  posthealthenedUser(userId) {
+  postHealthenedUser(userId) {
     return Repository.post(resource, {
       id: userId,
+      infected: 0,
     });
   },
 });

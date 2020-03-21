@@ -4,7 +4,6 @@ const resource = '/contacted';
 
 export default ({
   postcontactedUsers(userId1, userId2) {
-    console.log("GDHJWGDKJW");
     return Repository.post(resource, {
       id1: userId1,
       id2: userId2,

@@ -7,7 +7,7 @@ import {
   View,
   Button,
   ToastAndroid,
-  TouchableOpacity,
+  TouchableOpacity, Alert,
 } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import { Root, Popup } from 'popup-ui';
@@ -38,12 +38,15 @@ export default class HomeScreen extends React.Component {
     if (this._isMounted) {
       return infectedUser.postInfectedUser(userId)
         .then((res) => {
+          /*
           console.log('Infection succesfully added');
           Popup.show({
             type: 'Success',
             callback: () => Popup.hide(),
             title: 'Sie haben hiermit 1000 Leben gerettet! Dank Dir endet die Quarantäne!',
           });
+          */
+          Alert.alert('Lebensretter!', 'Sie haben hiermit 1000 Leben gerettet! Dank Dir endet die Quarantäne!', [{ text: 'OK', onPress: () => console.log('OK Pressed') }]);
           console.log(res.data);
         })
         .catch((error) => {
@@ -53,6 +56,29 @@ export default class HomeScreen extends React.Component {
             title: 'Upload failed',
             textBody: 'Sorry! Please upload again!',
           });
+          console.log('Error occured: ', error);
+        });
+    }
+  }
+
+  postHealthenedMethod(userId) {
+    if (this._isMounted) {
+      return infectedUser.postHealthenedUser(userId)
+        .then((res) => {
+          /*
+            console.log('Infection succesfully added');
+            Popup.show({
+              type: 'Success',
+              callback: () => Popup.hide(),
+              title: 'Sie haben hiermit 1000 Leben gerettet! Dank Dir endet die Quarantäne!',
+            });
+            */
+
+          Alert.alert('Sie sind gesund!', 'BLABLA', [{ text: 'OK', onPress: () => console.log('OK Pressed') }]);
+          console.log(res.data);
+        })
+        .catch((error) => {
+          Alert.alert('Das hat nicht geklappt!', 'BLABLA', [{ text: 'OK', onPress: () => console.log('OK Pressed') }]);
           console.log('Error occured: ', error);
         });
     }
@@ -82,6 +108,22 @@ export default class HomeScreen extends React.Component {
                 onPress={() => this.postInfectionMethod(deviceId)}
             >
               <Icon name={'close'} size={60} color="#ff0000" />
+            </TouchableOpacity>
+            <TouchableOpacity
+                style={{
+                  borderWidth: 1,
+                  borderColor: 'rgba(0,0,0,0.2)',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  width: 100,
+                  height: 100,
+                  backgroundColor: '#32ff15',
+                  borderRadius: 50,
+                  text: 'SE',
+                }}
+                onPress={() => this.postHealthenedMethod(deviceId)}
+            >
+              <Icon name={'check'} size={60} color="#ff0000" />
             </TouchableOpacity>
             <Text style={styles.getStartedText}> </Text>
             <Text style={{ fontWeight: 'bold' }}> Hier Klicken!</Text>
