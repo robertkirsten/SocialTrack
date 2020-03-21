@@ -57,39 +57,23 @@ export default class ShowContactPersonsScreen extends Component {
 //async
 function fetchData(contactPersonsList){
   //this.state.contactPersonsList = await contactPersonsRepository.get(id);
-  let object = Object.values(contactPersonsList).sort(compare);
-  let currentLetter = 'A';
-  let currentIndex = 0;
-  let arraywithqr = [];
 
-  for(let i = 0;i < object.length; i++){
-      if(object[i].name.charAt(0).toUpperCase() !== currentLetter){
-        arraywithqr.push(
-            {
-          'title': object[i].name.charAt(0),
-          'data': []
-        }
-        );
-        arraywithqr[currentIndex].data.push(object[i].name);
-
-        currentLetter = object[i].name.charAt(0);
-        currentIndex++;
-      }
-      else {
-       // console.log(Object.values(arraywithqr[currentIndex].data));
-        if(arraywithqr[currentIndex].data){
-          console.log("HALLO");
-          arraywithqr.push(
-              {
-                'title': object[i].name.charAt(0),
-                'data': []
-              }
-          );
-        }
-        arraywithqr[currentIndex].data.push(object[i].name);
-      }
+  const persons = Object.values(contactPersonsList).sort(compare);
+  let currentLetter = '';
+  let personsWithTitle = [];
+  
+  for (const person of persons){
+    if (person.name.charAt(0).toUpperCase() !== currentLetter){
+      currentLetter = person.name.charAt(0);
+      personsWithTitle.push({
+        'title': currentLetter,
+        'data': []
+      });
+    }
+    personsWithTitle[personsWithTitle.length-1].data.push(person.name);
   }
-  return arraywithqr;
+  return personsWithTitle;
+
   //this.state.contactPersonsListonlyQR = arraywithqr;
   //console.log(this.state.contactPersonsListonlyQR);
 }
