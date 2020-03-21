@@ -5,7 +5,7 @@ const routes = require('./routes');
 const app = express();
 
 // use request bodies
-app.use(bodyParser.urlencoded({
+app.use(bodyParser.json({
   extended: true,
 }));
 
