@@ -2,24 +2,15 @@ import Repository from "../repository";
 
 const resource = "/infected";
 
-
-
 export default ({
-    postInfectedUser(userId)
-    {
+    postInfectedUser(userId) {
         return Repository.post(resource, {
-                id: `${userId}`,
-            }
-        );
-
+            id: userId,
+        });
     },
-    posthealthenedUser(userId)
-    {
-        //Set boolean to false
+    posthealthenedUser(userId) {
         return Repository.post(resource, {
-                id: `${userId}`,
-            }
-        );
-
+            id: userId,
+        });
     }
 });
