@@ -8,7 +8,6 @@ const InfectionCall = RepositoryFactory.get('infection');
 
 export default class HomeScreen extends React.Component {
 
-
   render() {
     return (
       <View style={styles.container}>
@@ -21,7 +20,7 @@ export default class HomeScreen extends React.Component {
             <Button 
               style={styles.infectedButton}
               title={"I am Infected"}
-              onPress={postInfectionMethod("user", "contacted")}
+              onPress={() => postInfectionMethod("user", "contacted")}
                 //Alert.alert("Abfrage, ob wirklich infiziert hier Button einfügen der api call macht")}
             />
           </View>
