@@ -4,7 +4,7 @@ const resource = "/contactPersons";
 
 export default ({
 
-  postInfection(user, contacted){
+  postInfectionCall(user, contacted){
     return Repository.post(`${resource}/infected`, {user})
   },
   getContactPersons(id){

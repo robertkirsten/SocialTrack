@@ -13,17 +13,23 @@ import { ScrollView } from 'react-native-gesture-handler';
 import { RepositoryFactory } from '../API/RepositoryFactory';
 import { Root, Popup } from 'popup-ui'
 import Constants from 'expo-constants';
+import Icon from 'react-native-vector-icons/FontAwesome';
+import * as Elements from 'react-native-elements';
+
+
 
 
 const deviceId = Constants.deviceId;
-const InfectionCall = RepositoryFactory.get('infection');
+const InfectionCall = RepositoryFactory.get('contactPersons');
 
 export default class HomeScreen extends React.Component {
 
   render() {
     return (
-      <View style={styles.container}>
         <Root>
+        <View style={styles.container}>
+
+
           <View>
 
           </View>
@@ -32,32 +38,52 @@ export default class HomeScreen extends React.Component {
             <Text style={styles.getStartedText}>Willkommen bei CoronaTracking!</Text>
             <Text style={styles.getStartedText}>TODO: Aktuellen Status des Users anzeigen (Kontaktperson oder
               safe)</Text>
-            <Button 
-              style={styles.infectedButton}
-              title={"I am Infected"}
-              onPress={() => postInfectionMethod("user", "contacted")}
-                //Alert.alert("Abfrage, ob wirklich infiziert hier Button einfügen der api call macht")}
-            />
 
+            <TouchableOpacity
+                style={{
+                  borderWidth:1,
+                  borderColor:'rgba(0,0,0,0.2)',
+                  alignItems:'center',
+                  justifyContent:'center',
+                  width:100,
+                  height:100,
+                  backgroundColor:'#ff7b79',
+                  borderRadius:50,
+                  text: 'SE'
+                }}
+                onPress={() => postInfectionMethod("user", "contacted")}
+            >
+              <Icon name={"close"}  size={60} color="#ff0000" />
+            </TouchableOpacity>
           </View>
         </ScrollView>
-        </Root>
+
       </View>
+        </Root>
     );
   }
 }
 
 async function postInfectionMethod(user, contacted){
 
-  Popup.show({
-    type: 'Success',
-    callback: () => Popup.hide()
-  });
-  InfectionCall.postInfection(user, contacted).then(res => {
+
+  InfectionCall.postInfectionCall(user, contacted).then(res => {
     console.log("Infection succesfully added");
+    Popup.show({
+      type: 'Success',
+      callback: () => Popup.hide(),
+      title: 'Upload succeeded',
+    });
     console.log(res.data);
   })
   .catch(error => {
+    Popup.show({
+      type: 'Danger',
+      callback: () => Popup.hide(),
+      title: 'Upload failed',
+      textBody: 'Sorry! Please upload again!',
+
+    });
     console.log("Error occured: ", error);
   });
 }
