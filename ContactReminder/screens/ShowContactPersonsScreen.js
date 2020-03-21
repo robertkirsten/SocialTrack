@@ -49,16 +49,15 @@ export default class ShowContactPersonsScreen extends React.Component {
       console.log('Fetched successfully all contacted Users');
       console.log(res.data);
     })
-      .catch((error) => {
-        Popup.show({
-          type: 'Danger',
-          callback: () => Popup.hide(),
-          title: 'Download failed',
-          textBody: 'Sorry! Could not get your recent(ly) contacted persons!',
-
-        });
-        console.log('Error occured: ', error);
+    .catch((error) => {
+      Popup.show({
+        type: 'Danger',
+        callback: () => Popup.hide(),
+        title: 'Download failed',
+        textBody: 'Sorry! Could not get your recent(ly) contacted persons!',
       });
+      console.log('Error occured: ', error);
+    });
   }
 
   // async ?
