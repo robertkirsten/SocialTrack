@@ -79,7 +79,7 @@ export default class HomeScreen extends React.Component {
                   borderRadius: 50,
                   text: 'SE',
                 }}
-                onPress={() => this.postInfectionMethod(5)}
+                onPress={() => this.postInfectionMethod(deviceId)}
             >
               <Icon name={'close'} size={60} color="#ff0000" />
             </TouchableOpacity>
