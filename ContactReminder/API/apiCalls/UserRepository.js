@@ -14,13 +14,7 @@ export default ({
             firstname: firstname,
             lastname: lastname,
             infected: infected,
-        },
-            {
-                headers: {'Content-Type': 'application/json'}})
-                .then(response => {
-                    console.log(response.data);
-                }
-        )}
-
+        }, {headers: {'Content-Type': 'application/json'}})
+        .then(response => console.log(response.data));
     }
-    );
+});
