@@ -11,12 +11,26 @@ import * as Permissions from 'expo-permissions';
 import {BarCodeScanner} from 'expo-barcode-scanner';
 import QRCode from 'react-qr-code';
 import Constants from 'expo-constants';
+import {RepositoryFactory} from '../API/RepositoryFactory';
+const postUserId = RepositoryFactory.get('postUserId');
+
 
 export default class ScanContactPersonScreen extends Component {
   state = {
     hasPermission: null,
     scanning: false,
     deviceId: '',
+  };
+
+  async postData(id){
+    postUserId.postUserId(id).then(res => {
+      console.log("Connection succesfully added");
+      console.log(res.data);
+    })
+        .catch(error => {
+          console.log("Error occured: ", error);
+        });
+
   };
 
   async componentDidMount() {
