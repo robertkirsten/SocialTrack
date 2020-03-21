@@ -5,7 +5,7 @@ import ShowQRCodeScreen from '../screens/ShowQRCodeScreen';
 import ShowContactPersonsScreen from '../screens/ShowContactPersonsScreen';
 import HomeScreen from '../screens/HomeScreen';
 
-const BottomTab = createBottomTabNavigator();
+createBottomTabNavigator();
 
 export default function BottomTabNavigator({ navigation, route }) {
   // Set the header title on the parent stack navigator depending on the
@@ -20,7 +20,7 @@ export default function BottomTabNavigator({ navigation, route }) {
         component={ShowQRCodeScreen}
         options={{
           title: 'Kontaktperson scannen',
-          tabBarIcon: ({ focused }) => <TabBarIcon focused={focused} name="md-person-add" />,
+          tabBarIcon: ({ focused }) => <TabBarIcon focused={focused} name="md-person-add"/>,
         }}
       />
       <BottomTab.Screen
@@ -29,7 +29,7 @@ export default function BottomTabNavigator({ navigation, route }) {
         options={{
 
           title: 'Übersicht',
-          tabBarIcon: ({ focused }) => <TabBarIcon focused={focused} name="ios-information" />,
+          tabBarIcon: ({ focused }) => <TabBarIcon focused={focused} name="ios-information"/>,
         }}
       />
       <BottomTab.Screen
@@ -37,7 +37,7 @@ export default function BottomTabNavigator({ navigation, route }) {
         component={ShowContactPersonsScreen}
         options={{
           title: 'Meine Kontakte',
-          tabBarIcon: ({ focused }) => <TabBarIcon focused={focused} name="md-people" />,
+          tabBarIcon: ({ focused }) => <TabBarIcon focused={focused} name="md-people"/>,
         }}
       />
 
@@ -45,6 +45,7 @@ export default function BottomTabNavigator({ navigation, route }) {
   );
 }
 
+// eslint-disable-next-line no-unused-vars
 function getHeaderTitle(route) {
   /* const routeName = route.state?.routes[route.state.index]?.name ?? INITIAL_ROUTE_NAME;
 

@@ -10,24 +10,23 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
-import { RepositoryFactory } from '../API/RepositoryFactory';
-import { Root, Popup } from 'popup-ui'
+import { Root, Popup } from 'popup-ui';
 import Constants from 'expo-constants';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import * as Elements from 'react-native-elements';
+import { RepositoryFactory } from '../API/RepositoryFactory';
 
-const deviceId = Constants.deviceId;
+const { deviceId } = Constants;
 
 const infectedUser = RepositoryFactory.get('infectedUser');
 export default class HomeScreen extends React.Component {
-
   constructor(props) {
     super(props);
     this._isMounted = false;
   }
 
 
-  componentDidMount(){
+  componentDidMount() {
     this._isMounted = true;
   }
 
@@ -35,27 +34,27 @@ export default class HomeScreen extends React.Component {
     this._isMounted = false;
   }
 
-  postInfectionMethod(userId){
-    if(this._isMounted){
+  postInfectionMethod(userId) {
+    if (this._isMounted) {
       return infectedUser.postInfectedUser(5)
-      .then(res => {
-        console.log("Infection succesfully added");
-        Popup.show({
-          type: 'Success',
-          callback: () => Popup.hide(),
-          title: 'Sie haben hiermit 1000 Leben gerettet! Dank Dir endet die Quarantäne!',
+        .then((res) => {
+          console.log('Infection succesfully added');
+          Popup.show({
+            type: 'Success',
+            callback: () => Popup.hide(),
+            title: 'Sie haben hiermit 1000 Leben gerettet! Dank Dir endet die Quarantäne!',
+          });
+          console.log(res.data);
+        })
+        .catch((error) => {
+          Popup.show({
+            type: 'Danger',
+            callback: () => Popup.hide(),
+            title: 'Upload failed',
+            textBody: 'Sorry! Please upload again!',
+          });
+          console.log('Error occured: ', error);
         });
-        console.log(res.data);
-      })
-      .catch(error => {
-        Popup.show({
-          type: 'Danger',
-          callback: () => Popup.hide(),
-          title: 'Upload failed',
-          textBody: 'Sorry! Please upload again!',
-        });
-        console.log("Error occured: ", error);
-      });
     }
   }
 
@@ -65,27 +64,27 @@ export default class HomeScreen extends React.Component {
         <View style={styles.container}>
         <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
           <View style={styles.getStartedContainer}>
-            <Text style={{fontWeight: 'bold', fontSize: 20}}>Sie haben sich infiziert? </Text>
+            <Text style={{ fontWeight: 'bold', fontSize: 20 }}>Sie haben sich infiziert? </Text>
             <Text style={styles.getStartedText}>Dann melden Sie dies bitte hier, um sich und andere zu schützen! </Text>
             <Text style={styles.getStartedText}> </Text>
             <TouchableOpacity
                 style={{
-                  borderWidth:1,
-                  borderColor:'rgba(0,0,0,0.2)',
-                  alignItems:'center',
-                  justifyContent:'center',
-                  width:100,
-                  height:100,
-                  backgroundColor:'#ff7b79',
-                  borderRadius:50,
-                  text: 'SE'
+                  borderWidth: 1,
+                  borderColor: 'rgba(0,0,0,0.2)',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  width: 100,
+                  height: 100,
+                  backgroundColor: '#ff7b79',
+                  borderRadius: 50,
+                  text: 'SE',
                 }}
                 onPress={() => this.postInfectionMethod(5)}
             >
-              <Icon name={"close"}  size={60} color="#ff0000" />
+              <Icon name={'close'} size={60} color="#ff0000" />
             </TouchableOpacity>
             <Text style={styles.getStartedText}> </Text>
-            <Text style={{fontWeight: 'bold'}}> Hier Klicken!</Text>
+            <Text style={{ fontWeight: 'bold' }}> Hier Klicken!</Text>
           </View>
         </ScrollView>
 
@@ -108,8 +107,8 @@ const styles = StyleSheet.create({
     width: 100,
     borderRadius: 5,
     padding: 10,
-    color: "#f03434",
-    borderColor: "#f03434",
+    color: '#f03434',
+    borderColor: '#f03434',
     borderWidth: 2,
 
   },
@@ -164,7 +163,7 @@ const styles = StyleSheet.create({
     ...Platform.select({
       ios: {
         shadowColor: 'black',
-        shadowOffset: {width: 0, height: -3},
+        shadowOffset: { width: 0, height: -3 },
         shadowOpacity: 0.1,
         shadowRadius: 3,
       },

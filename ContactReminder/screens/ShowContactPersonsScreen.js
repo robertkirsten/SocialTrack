@@ -49,15 +49,15 @@ export default class ShowContactPersonsScreen extends React.Component {
       console.log('Fetched successfully all contacted Users');
       console.log(res.data);
     })
-    .catch((error) => {
-      Popup.show({
-        type: 'Danger',
-        callback: () => Popup.hide(),
-        title: 'Download failed',
-        textBody: 'Sorry! Could not get your recent(ly) contacted persons!',
+      .catch((error) => {
+        Popup.show({
+          type: 'Danger',
+          callback: () => Popup.hide(),
+          title: 'Download failed',
+          textBody: 'Sorry! Could not get your recent(ly) contacted persons!',
+        });
+        console.log('Error occured: ', error);
       });
-      console.log('Error occured: ', error);
-    });
   }
 
   // async ?
@@ -93,7 +93,7 @@ export default class ShowContactPersonsScreen extends React.Component {
       <RectButton style={[styles.option, isLastOption && styles.lastOption]} onPress={onPress}>
         <View style={{ flexDirection: 'row' }}>
           <View style={styles.optionIconContainer}>
-            <Ionicons name={icon} size={22} color="rgba(0,0,0,0.35)" />
+            <Ionicons name={icon} size={22} color="rgba(0,0,0,0.35)"/>
           </View>
           <View style={styles.optionTextContainer}>
             <Text style={styles.optionText}>{label}</Text>
@@ -107,9 +107,9 @@ export default class ShowContactPersonsScreen extends React.Component {
     const { personNamesWithTitle } = this.state;
     return (
       <View style={styles.container}>
-        <this.OptionButton />
+        <this.OptionButton/>
         <SectionList
-          sections={ personNamesWithTitle }
+          sections={personNamesWithTitle}
           renderItem={({ item }) => <Text style={styles.item}>{item}</Text>}
           renderSectionHeader={({ section }) => <Text style={styles.sectionHeader}>{section.title}</Text>}
           keyExtractor={(item, index) => index}

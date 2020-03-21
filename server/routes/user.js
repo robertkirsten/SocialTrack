@@ -1,4 +1,7 @@
-const app = module.exports = require('express')();
+const app = require('express')();
+
+module.exports = app;
+
 const db = require('../db');
 const handleError = require('../handleError');
 
@@ -10,7 +13,11 @@ app.get('/', (req, res) => {
     WHERE id = ?; `;
 
   db.get(sql, [id], (err, row) => {
-    if (err) return handleError(res, err);
+    if (err) {
+      handleError(res, err);
+      return;
+    }
+
     res.send(row);
   });
 });
@@ -21,28 +28,37 @@ app.post('/', (req, res) => {
   } = req.body;
   console.log(req.body);
 
-  const sql = `SELECT *
+  let sql = `SELECT *
     FROM person
     WHERE id = ?;`;
   db.get(sql, [id], (err, row) => {
-    if (err) return handleError(res, err);
+    if (err) {
+      handleError(res, err);
+      return;
+    }
 
     if (row) {
-      const sql = `UPDATE person
+      sql = `UPDATE person
         SET firstname = ?,
           lastname = ?
         WHERE id = ?;`;
-      db.run(sql, [firstname, lastname, id], (err) => {
-        if (err) return handleError(res, err);
+      db.run(sql, [firstname, lastname, id], (err2) => {
+        if (err2) {
+          handleError(res, err2);
+          return;
+        }
 
         console.log(`updated name of person ${id}`);
         res.status(200).send('');
       });
     } else {
-      const sql = `INSERT INTO person (id, firstname, lastname, infected)
+      sql = `INSERT INTO person (id, firstname, lastname, infected)
         VALUES (?, ?, ?, ?);`;
-      db.run(sql, [id, firstname, lastname, infected], (err) => {
-        if (err) return handleError(res, err);
+      db.run(sql, [id, firstname, lastname, infected], (err2) => {
+        if (err2) {
+          handleError(res, err2);
+          return;
+        }
 
         console.log(`stored person with id ${id}`);
         res.status(200).send('');

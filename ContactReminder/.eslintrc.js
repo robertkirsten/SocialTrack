@@ -7,6 +7,7 @@ module.exports = {
   },
   extends: [
     'airbnb-base',
+    'plugin:react/recommended',
   ],
   globals: {
     Atomics: 'readonly',
@@ -21,7 +22,7 @@ module.exports = {
   },
   plugins: [
     'react',
-    'react-native'
+    'react-native',
   ],
   rules: {
     'max-len': 'off',

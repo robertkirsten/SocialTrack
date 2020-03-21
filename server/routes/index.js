@@ -1,4 +1,6 @@
-const app = module.exports = require('express')();
+const app = require('express')();
+
+module.exports = app;
 
 app.get('/', (req, res) => res.send('You may be Infected :('));
 

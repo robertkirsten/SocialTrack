@@ -7,13 +7,14 @@ import * as Font from 'expo-font';
 import { Ionicons } from '@expo/vector-icons';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import Icon from 'react-native-vector-icons';
 import BottomTabNavigator from './navigation/BottomTabNavigator';
 import useLinking from './navigation/useLinking';
 import ScanContactPersonScreen from './screens/ScanContactPersonScreen';
 import SettingsScreen from './screens/SettingsScreen';
 
-const Stack = createStackNavigator();
+const spaceMonoFont = require('./assets/fonts/SpaceMono-Regular.ttf');
+
+createStackNavigator();
 
 export default function App(props) {
   const [isLoadingComplete, setLoadingComplete] = React.useState(false);
@@ -33,7 +34,7 @@ export default function App(props) {
         // Load fonts
         await Font.loadAsync({
           ...Ionicons.font,
-          'space-mono': require('./assets/fonts/SpaceMono-Regular.ttf'),
+          'space-mono': spaceMonoFont,
         });
       } catch (e) {
         // We might want to provide this error information to an error reporting service

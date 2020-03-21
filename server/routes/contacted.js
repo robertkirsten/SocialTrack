@@ -1,4 +1,7 @@
-const app = module.exports = require('express')();
+const app = require('express')();
+
+module.exports = app;
+
 const db = require('../db');
 const handleError = require('../handleError');
 
@@ -13,7 +16,10 @@ app.get('/', (req, res) => {
     AND contact.person1id = ?);`;
 
   db.all(sql, [id, id], (err, rows) => {
-    if (err) return handleError(res, err);
+    if (err) {
+      handleError(res, err);
+      return;
+    }
 
     res.status(200).send(rows);
   });
@@ -25,7 +31,10 @@ app.post('/contacted', (req, res) => {
   const sql = `INSERT INTO contact (person1id, person2id)
     VALUES (?, ?);`;
   db.run(sql, [id1, id2], (err) => {
-    if (err) return handleError(res, err);
+    if (err) {
+      handleError(res, err);
+      return;
+    }
 
     console.log(`added infection between ${id1} and ${id2}`);
     res.status(200).send('');
