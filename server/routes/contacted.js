@@ -28,15 +28,33 @@ app.get('/', (req, res) => {
 app.post('/', (req, res) => {
   const { id1, id2 } = req.body;
 
-  const sql = `INSERT INTO contact (person1id, person2id)
-    VALUES (?, ?);`;
-  db.run(sql, [id1, id2], (err) => {
+  const sql = `SELECT person.id
+    FROM contact, person
+    WHERE (contact.person1id = ?
+    AND contact.person2id = ?)
+    OR (contact.person2id = ?
+    AND contact.person1id = ?);`;
+
+  db.get(sql, [id1, id2, id1, id2], (err, row) => {
     if (err) {
       handleError(res, err);
       return;
     }
+    if (row) {
+      res.status(200).send('already registered');
+      return;
+    }
 
-    console.log(`added infection between ${id1} and ${id2}`);
-    res.status(200).send('');
-  });
+    const sql = `INSERT INTO contact (person1id, person2id)
+      VALUES (?, ?);`;
+    db.run(sql, [id1, id2], (err) => {
+      if (err) {
+        handleError(res, err);
+        return;
+      }
+
+      console.log(`added infection between ${id1} and ${id2}`);
+      res.status(200).send('');
+    });
+  })
 });
