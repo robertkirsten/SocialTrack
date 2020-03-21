@@ -9,6 +9,9 @@ import { Root, Popup } from 'popup-ui'
 import Icon from 'react-native-vector-icons/FontAwesome';
 import {Input} from "react-native-elements";
 import { RepositoryFactory } from '../API/RepositoryFactory';
+import Constants from 'expo-constants';
+
+const deviceID = Constants.deviceId;
 const user = RepositoryFactory.get('user');
 
 
@@ -40,8 +43,7 @@ export default class SettingsScreen extends React.Component {
     } catch (error) {
       // Error saving data
     }
-    //TODO: CHANGE ID
-    await this.postUser(5);
+    await this.postUser(deviceID);
   }
 
   async _retrieveData(key) {

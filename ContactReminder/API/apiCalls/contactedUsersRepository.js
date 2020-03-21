@@ -2,8 +2,7 @@ import Repository from '../repository';
 
 const resource = '/contacted';
 
-export default (
-    {
+export default ({
   postcontactedUsers(userId1, userId2) {
     console.log("GDHJWGDKJW");
     return Repository.post(resource, {
