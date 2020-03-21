@@ -27,11 +27,7 @@ export default class HomeScreen extends React.Component {
             <Button 
               style={styles.infectedButton}
               title={"I am Infected"}
-<<<<<<< HEAD
               onPress={postInfectionMethod(deviceId, "contacted")}
-=======
-              onPress={() => postInfectionMethod("user", "contacted")}
->>>>>>> 0074e5f719ac2f2547ea41161c033d67765f2174
                 //Alert.alert("Abfrage, ob wirklich infiziert hier Button einfügen der api call macht")}
             />
           </View>
