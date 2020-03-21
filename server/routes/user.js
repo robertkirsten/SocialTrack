@@ -10,7 +10,7 @@ app.get('/', (req, res) => {
 
   const sql = `SELECT *
     FROM person
-    WHERE id = ?; `;
+    WHERE id = ?;`;
 
   db.get(sql, [id], (err, row) => {
     if (err) {

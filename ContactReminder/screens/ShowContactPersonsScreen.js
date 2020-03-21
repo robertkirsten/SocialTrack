@@ -122,12 +122,13 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(247,247,247,1.0)',
   },
   itemInfected: {
-    color:'red',
+    backgroundColor: 'orangered',
     padding: 10,
     fontSize: 18,
     height: 44,
   },
   itemNotInfected: {
+    backgroundColor: 'lightgreen',
     padding: 10,
     fontSize: 18,
     height: 44,
