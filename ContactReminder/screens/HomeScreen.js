@@ -88,7 +88,6 @@ async function postInfectionMethod(userId){
           callback: () => Popup.hide(),
           title: 'Upload failed',
           textBody: 'Sorry! Please upload again!',
-
         });
         console.log("Error occured: ", error);
       });

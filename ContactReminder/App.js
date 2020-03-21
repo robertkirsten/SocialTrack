@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Button, Platform, StatusBar, StyleSheet, View } from 'react-native';
+import {Button, Platform, StatusBar, StyleSheet, TouchableOpacity, View} from 'react-native';
 import { SplashScreen } from 'expo';
 import * as Font from 'expo-font';
 import { Ionicons } from '@expo/vector-icons';
@@ -9,6 +9,7 @@ import BottomTabNavigator from './navigation/BottomTabNavigator';
 import useLinking from './navigation/useLinking';
 import ScanContactPersonScreen from './screens/ScanContactPersonScreen';
 import SettingsScreen from './screens/SettingsScreen'
+import Icon from "react-native-vector-icons";
 const Stack = createStackNavigator();
 
 export default function App(props) {
@@ -55,7 +56,7 @@ export default function App(props) {
               headerRight: () => (
                   <Button
                       onPress={() => navigation.push('SettingsScreen')}
-                      title="Info"
+                      title="Settings"
                       color="#00cc00"
                   />
               ),
