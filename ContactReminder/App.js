@@ -51,15 +51,15 @@ export default function App(props) {
         {Platform.OS === 'ios' && <StatusBar barStyle="default" />}
         <NavigationContainer ref={containerRef} initialState={initialNavigationState}>
           <Stack.Navigator>
-            <Stack.Screen name="Root" component={BottomTabNavigator} options={{
+            <Stack.Screen name="Root" component={BottomTabNavigator} options={({ navigation }) => ({
               headerRight: () => (
                   <Button
-                      onPress={() => Stack.navigation.push('SettingsScreen')}
+                      onPress={() => navigation.push('SettingsScreen')}
                       title="Info"
                       color="#00cc00"
                   />
               ),
-            }}/>
+            })}/>
             <Stack.Screen name="ScanContactPersonScreen" component={ScanContactPersonScreen} />
             <Stack.Screen name="SettingsScreen" component={SettingsScreen}  />
           </Stack.Navigator>
