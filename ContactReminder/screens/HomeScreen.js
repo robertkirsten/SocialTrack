@@ -35,7 +35,6 @@ export default class HomeScreen extends React.Component {
     this._isMounted = false;
   }
 
-
   postInfectionMethod(userId){
     if(this._isMounted){
       return infectedUser.postInfectedUser(5)

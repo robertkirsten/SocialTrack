@@ -4,7 +4,7 @@ import InfectedUserIdRepository from './apiCalls/infectedUserRepository';
 import UserRepository from './apiCalls/UserRepository';
 
 const repositories = {
-  contactedUsersRepository,
+  contactedUsersRepository: contactedUsersRepository,
   postUserId: PostUserIdRepository,
   infectedUser: InfectedUserIdRepository,
   user: UserRepository,
