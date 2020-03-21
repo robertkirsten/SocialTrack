@@ -1,6 +1,10 @@
 # CoronaHACK
 App, die unterstützt, Infektionsketten zu unterbrechen. Hierbei werden die sozialen Kontakte getrackt. Dabei werden Menschen, die mit einer infizierten Person in Kontakt standen informiert und können so schnell und AGIL (#SCRUM) die notwendigen Maßnahmen (Quarantäne, etc.) durchführen
 
+## Setup DB
+
+* `mkdir -p server/instance && touch server/instance/db.db`
+
 ## Konzept ContactReminder
 
 ### Bluetooth
