@@ -10,8 +10,10 @@ import {ScrollView} from 'react-native-gesture-handler';
 import * as Permissions from 'expo-permissions';
 import QRCode from 'react-qr-code';
 import Constants from 'expo-constants';
+import { RepositoryFactory } from '../API/RepositoryFactory';
 
 const deviceId = Constants.deviceId;
+const conactRepo = RepositoryFactory['contactedUserRepository'];
 
 export default class ShowQRCodeScreen extends Component {
   state = {
