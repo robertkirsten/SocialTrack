@@ -12,18 +12,17 @@ import {BarCodeScanner} from 'expo-barcode-scanner';
 import QRCode from 'react-qr-code';
 import Constants from 'expo-constants';
 
+const deviceId = Constants.deviceId;
+
 export default class ScanContactPersonScreen extends Component {
   state = {
     hasPermission: null,
     scanning: false,
-    deviceId: '',
   };
 
   async componentDidMount() {
     const {status} = await Permissions.askAsync(Permissions.CAMERA);
     this.setState({hasPermission: status === 'granted'});
-
-    this.setState({ deviceId: Constants.deviceId });
   }
 
   handleBarCodeScanned = ({type, data}) => {
@@ -42,25 +41,25 @@ export default class ScanContactPersonScreen extends Component {
     }
 
     return (
-      <View style={
-        {
-          flex: 1,
-          flexDirection: 'column',
-          justifyContent: 'flex-end',
-        } 
-      }>
+      <View style={{
+        flex: 1,
+        flexDirection: 'column',
+        justifyContent: 'flex-end',
+      }}>
         <BarCodeScanner 
           onBarCodeScanned={ this.handleBarCodeScanned }
-          style={StyleSheet.absoluteFillObject}/>
+          style={StyleSheet.absoluteFillObject}
+        />
         <Button
           title="Stop scanning"
-          onPress={ () => this.setState({scanning: false}) }/>
+          onPress={ () => this.setState({scanning: false}) }
+        />
       </View>
     );
   }
 
   render() {
-    const { scanning, deviceId } = this.state;
+    const { scanning } = this.state;
 
     if (scanning) {
       return this.barcodescan();

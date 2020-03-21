@@ -1,18 +1,24 @@
 import * as React from 'react';
-import {Image, Platform, StyleSheet, Text, TouchableOpacity, View, Alert, Button} from 'react-native';
-import {ScrollView} from 'react-native-gesture-handler';
+import {
+  Image,
+  Platform,
+  StyleSheet,
+  Text,
+  View,
+  Button,
+} from 'react-native';
+import { ScrollView } from 'react-native-gesture-handler';
+import { RepositoryFactory } from '../API/RepositoryFactory';
+import Constants from 'expo-constants';
 
-import {MonoText} from '../components/StyledText';
-import {RepositoryFactory} from '../API/RepositoryFactory';
+const deviceId = Constants.deviceId;
 const InfectionCall = RepositoryFactory.get('infection');
 
 export default class HomeScreen extends React.Component {
 
-
   render() {
     return (
       <View style={styles.container}>
-
         <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
           <View style={styles.getStartedContainer}>
             <Text style={styles.getStartedText}>Willkommen bei CoronaTracking!</Text>
@@ -21,7 +27,7 @@ export default class HomeScreen extends React.Component {
             <Button 
               style={styles.infectedButton}
               title={"I am Infected"}
-              onPress={postInfectionMethod("user", "contacted")}
+              onPress={postInfectionMethod(deviceId, "contacted")}
                 //Alert.alert("Abfrage, ob wirklich infiziert hier Button einfügen der api call macht")}
             />
           </View>
@@ -37,9 +43,9 @@ async function postInfectionMethod(user, contacted){
     console.log("Infection succesfully added");
     console.log(res.data);
   })
-      .catch(error => {
-        console.log("Error occured: ", error);
-      });
+  .catch(error => {
+    console.log("Error occured: ", error);
+  });
 }
 
 HomeScreen.navigationOptions = {
