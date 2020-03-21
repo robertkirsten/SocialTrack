@@ -43,7 +43,6 @@ export default class HomeScreen extends React.Component {
             <Text style={{fontWeight: 'bold', fontSize: 20}}>Sie haben sich infiziert? </Text>
             <Text style={styles.getStartedText}>Dann melden Sie dies bitte hier, um sich und andere zu schützen! </Text>
             <Text style={styles.getStartedText}> </Text>
-
             <TouchableOpacity
                 style={{
                   borderWidth:1,
@@ -60,7 +59,6 @@ export default class HomeScreen extends React.Component {
             >
               <Icon name={"close"}  size={60} color="#ff0000" />
             </TouchableOpacity>
-
             <Text style={styles.getStartedText}> </Text>
             <Text style={{fontWeight: 'bold'}}> Hier Klicken!</Text>
           </View>
@@ -73,7 +71,8 @@ export default class HomeScreen extends React.Component {
 }
 
 async function postInfectionMethod(userId){
-  return infectedUser.postInfectedUser(5).then(res => {
+
+  return await infectedUser.postInfectedUser(5).then(res => {
     console.log("Infection succesfully added");
     Popup.show({
       type: 'Success',

@@ -35,8 +35,8 @@ export default class SettingsScreen extends React.Component {
             // Error saving data
         }
         //TODO: CHANGE ID
-        this.postUser(5);
-        console.log(this._retrieveData('lastname'));
+        await this.postUser(5);
+
     };
     async _retrieveData(key) {
         try {
@@ -50,14 +50,16 @@ export default class SettingsScreen extends React.Component {
         }
     }
     async postUser(userid){
-        const firstname = this._retrieveData('firstname');
-        const lastname = this._retrieveData('lastname');
-        return user.postUserData(userid,null, firstname,lastname)
+
+        const {firstname, lastname} = this.state;
+        console.log(firstname);
+        console.log(lastname);
+
+        return user.postUserData(userid,0, firstname,lastname)
             .then(res => {
                 console.log("Fetched successfully all contacted Users");
-                console.log(res.data);
+                //console.log(res.data);
             })
-
             .catch(error => {
                 Popup.show({
                     type: 'Danger',
