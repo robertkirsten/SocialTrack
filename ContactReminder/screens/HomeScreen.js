@@ -35,10 +35,9 @@ export default class HomeScreen extends React.Component {
           </View>
         <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
           <View style={styles.getStartedContainer}>
-            <Text style={styles.getStartedText}>Willkommen bei CoronaTracking!</Text>
-            <Text style={styles.getStartedText}>TODO: Aktuellen Status des Users anzeigen (Kontaktperson oder
-              safe)</Text>
-
+            <Text style={{fontWeight: 'bold', fontSize: 20}}>Sie haben sich infiziert? </Text>
+            <Text style={styles.getStartedText}>Dann melden Sie dies bitte hier, um sich und andere zu schützen! </Text>
+            <Text style={styles.getStartedText}> </Text>
             <TouchableOpacity
                 style={{
                   borderWidth:1,
@@ -55,6 +54,7 @@ export default class HomeScreen extends React.Component {
             >
               <Icon name={"close"}  size={60} color="#ff0000" />
             </TouchableOpacity>
+            <Text style={{fontWeight: 'bold'}}> Hier Klicken!</Text>
           </View>
         </ScrollView>
 
@@ -65,14 +65,12 @@ export default class HomeScreen extends React.Component {
 }
 
 async function postInfectionMethod(user, contacted){
-
-
   InfectionCall.postInfectionCall(user, contacted).then(res => {
     console.log("Infection succesfully added");
     Popup.show({
       type: 'Success',
       callback: () => Popup.hide(),
-      title: 'Upload succeeded',
+      title: 'Sie haben hiermit 1000 Leben gerettet! Danke Dir endet die Quaramtäne!',
     });
     console.log(res.data);
   })

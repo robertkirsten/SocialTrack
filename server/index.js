@@ -1,15 +1,38 @@
-var express = require('express');
-var app = express();
+let express = require('express');
+let bodyParser = require('body-parser');
+let app = express();
+app.use(bodyParser.urlencoded({
+  extended: true,
+})
 
-let infectedPersons = []
+let infectedPersons = [];
 
 //Push benachrichtigung von hier schicken
 
-app.get('/', function (req, res) {
+app.get('/', (req, res) => {
   res.send('You may be Infected :(');
 });
 
-app.post('/infected', function(req, res){
+app.get('/user', (req, res) => {
+  //Queryparams:
+  const id = req.query.id;
+  res.send(id);
+});
+
+app.post('/user', (req, res) => {
+  //Body: id, vorname, nachname, infiziert
+  //Queryparams:
+  //req.body.id: SQL-Query
+  //Auf
+  const id = req.query.id;
+
+  res.send(id);
+});
+
+
+
+
+app.post('/infected', (req, res) => {
   console.log("Added Person with uid: ", req.body.uid);
 
   let data = {
