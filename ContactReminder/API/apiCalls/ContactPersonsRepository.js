@@ -4,15 +4,8 @@ const resource = "/contactPersons";
 
 export default ({
 
-  postInfectiction(user){
+  postInfection(user, contacted){
     return Repository.post(`${resource}/infected`, {user})
-      .then(res => {
-        console.log("Infection succesfully added");
-        console.log(res.data);
-      })
-      .catch(error => {
-        console.log("Error occured: ", error);
-      })
   }
 
 })
