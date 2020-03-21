@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import TabBarIcon from '../components/TabBarIcon';
-import ScanContactPersonScreen from '../screens/ScanContactPersonScreen';
+import ShowQRCodeScreen from '../screens/ShowQRCodeScreen';
 import ShowContactPersonsScreen from '../screens/ShowContactPersonsScreen';
 import HomeScreen from "../screens/HomeScreen";
 
@@ -18,7 +18,7 @@ export default function BottomTabNavigator({ navigation, route }) {
     <BottomTab.Navigator initialRouteName={INITIAL_ROUTE_NAME}>
       <BottomTab.Screen
         name="ScanContactPersonScreen"
-        component={ScanContactPersonScreen}
+        component={ShowQRCodeScreen}
         options={{
           title: 'Kontaktperson scannen',
           tabBarIcon: ({ focused }) => <TabBarIcon focused={focused} name="md-person-add" />,

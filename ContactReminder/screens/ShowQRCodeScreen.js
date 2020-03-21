@@ -3,15 +3,20 @@ import {
   Text,
   View,
   StyleSheet,
+  Button,
   Platform
 } from 'react-native';
+import {ScrollView} from 'react-native-gesture-handler';
 import * as Permissions from 'expo-permissions';
 import {BarCodeScanner} from 'expo-barcode-scanner';
+import QRCode from 'react-qr-code';
+import Constants from 'expo-constants';
 import {RepositoryFactory} from '../API/RepositoryFactory';
 
 const postUserId = RepositoryFactory.get('postUserId');
+const deviceId = Constants.deviceId;
 
-export default class ScanContactPersonScreen extends Component {
+export default class ShowQRCodeScreen extends Component {
   state = {
     hasPermission: null,
   };
@@ -34,34 +39,28 @@ export default class ScanContactPersonScreen extends Component {
 
   handleBarCodeScanned = ({type, data}) => {
     alert(`Bar code with type ${type} and data ${data} has been scanned!`);
-    this.props.navigation.goBack();
   };
 
   render() {
-    const {hasCameraPermission} = this.state;
-
-    if (hasCameraPermission === null) {
-      return <Text> Requesting for camera permission </Text>;
-    }
-    if (hasCameraPermission === false) {
-      return <Text> No access to camera </Text>;
-    }
-
     return (
       <View style={styles.container}>
-        <View style={styles.getStartedContainer}>
-          <Text style={{marginBottom: 10}}>Scanne den Barcode einer anderen Person, um euch zu verbinden.</Text>
-        </View>
-        <BarCodeScanner
-          onBarCodeScanned={this.handleBarCodeScanned}
-          style={{flex: 1, marginBottom: 20}}
-        />
+        <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
+          <View style={styles.getStartedContainer}>
+            <Text style={{marginBottom: 30}}>Dies ist dein persönlicher Code. Lass eine andere Person diesen Code
+              scannen, um dich als Kontaktperson hinzuzufügen.</Text>
+            <QRCode value={deviceId}/>
+            <Text style={{marginTop: 50, marginBottom: 10}}>Oder du scannst selbst den Code einer anderen Person.</Text>
+            <Button
+              title="Anderen Code scannen"
+              onPress={() => this.props.navigation.push('ScanContactPersonScreen')}/>
+          </View>
+        </ScrollView>
       </View>
-    );
+    )
   }
 }
 
-ScanContactPersonScreen.navigationOptions = {
+ShowQRCodeScreen.navigationOptions = {
   header: null,
 };
 
