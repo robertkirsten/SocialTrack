@@ -66,26 +66,10 @@ export default class ShowContactPersonsScreen extends React.Component {
     return personNamesWithTitle;
   }
 
-  OptionButton({ icon, label, onPress, isLastOption, }) {
-    return (
-      <RectButton style={[styles.option, isLastOption && styles.lastOption]} onPress={onPress}>
-        <View style={{ flexDirection: 'row' }}>
-          <View style={styles.optionIconContainer}>
-            <Ionicons name={icon} size={22} color="rgba(0,0,0,0.35)"/>
-          </View>
-          <View style={styles.optionTextContainer}>
-            <Text style={styles.optionText}>{label}</Text>
-          </View>
-        </View>
-      </RectButton>
-    );
-  }
-
   render() {
     const { personNamesWithTitle } = this.state;
     return (
       <View style={styles.container}>
-        <this.OptionButton/>
         <SectionList
           sections={personNamesWithTitle}
           renderItem={({ item }) => <Text style={styles.item}>{item}</Text>}
