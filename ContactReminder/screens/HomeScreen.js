@@ -6,10 +6,12 @@ import {
   Text,
   View,
   Button,
-  ToastAndroid
+  ToastAndroid,
+  TouchableOpacity,
 } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import { RepositoryFactory } from '../API/RepositoryFactory';
+import { Root, Popup } from 'popup-ui'
 import Constants from 'expo-constants';
 
 
@@ -21,6 +23,10 @@ export default class HomeScreen extends React.Component {
   render() {
     return (
       <View style={styles.container}>
+        <Root>
+          <View>
+
+          </View>
         <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
           <View style={styles.getStartedContainer}>
             <Text style={styles.getStartedText}>Willkommen bei CoronaTracking!</Text>
@@ -29,11 +35,13 @@ export default class HomeScreen extends React.Component {
             <Button 
               style={styles.infectedButton}
               title={"I am Infected"}
-              onPress={ToastAndroid.show("Hello Android", 50)}
+              onPress={() => postInfectionMethod("user", "contacted")}
                 //Alert.alert("Abfrage, ob wirklich infiziert hier Button einfügen der api call macht")}
             />
+
           </View>
         </ScrollView>
+        </Root>
       </View>
     );
   }
@@ -41,12 +49,15 @@ export default class HomeScreen extends React.Component {
 
 async function postInfectionMethod(user, contacted){
 
-
+  Popup.show({
+    type: 'Success'
+  });
   InfectionCall.postInfection(user, contacted).then(res => {
     console.log("Infection succesfully added");
     console.log(res.data);
   })
   .catch(error => {
+    ToastAndroid.show("An Error occured", 50);
     console.log("Error occured: ", error);
   });
 }
