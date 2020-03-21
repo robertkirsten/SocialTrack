@@ -29,9 +29,9 @@ export default class ScanContactPersonScreen extends Component {
       console.log("Connection succesfully added");
       console.log(res.data);
     })
-      .catch(error => {
-        console.log("Error occured: ", error);
-      });
+    .catch(error => {
+      console.log("Error occured: ", error);
+    });
 
   };
 
