@@ -60,7 +60,11 @@ export default class ShowContactPersonsScreen extends React.Component {
         });
       }
 
-      personNamesWithTitle[personNamesWithTitle.length - 1].data.push(`${person.firstname} ${person.lastname}`);
+      console.log(person);
+      personNamesWithTitle[personNamesWithTitle.length - 1].data.push({
+        infected: person.infected,
+        name: `${person.firstname} ${person.lastname}`
+      });
     }
 
     return personNamesWithTitle;
@@ -72,7 +76,7 @@ export default class ShowContactPersonsScreen extends React.Component {
       <View style={styles.container}>
         <SectionList
           sections={personNamesWithTitle}
-          renderItem={({ item }) => <Text style={styles.item}>{item}</Text>}
+          renderItem={({ item }) => <Text style={item.infected ? {color: "red"} : {color: "green"}}>{item.name}</Text>}
           renderSectionHeader={({ section }) => <Text style={styles.sectionHeader}>{section.title}</Text>}
           keyExtractor={(item, index) => index}
         />

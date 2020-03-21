@@ -8,7 +8,7 @@ const handleError = require('../handleError');
 app.get('/', (req, res) => {
   const { id } = req.query;
 
-  const sql = `SELECT person.id, person.firstname, person.lastname, contact.time
+  const sql = `SELECT person.id, person.firstname, person.lastname, person.infected, contact.time
     FROM contact, person
     WHERE (contact.person1id = person.id
     AND contact.person2id = ?)
