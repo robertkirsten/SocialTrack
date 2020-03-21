@@ -28,6 +28,11 @@ app.get('/', (req, res) => {
 app.post('/', (req, res) => {
   const { id1, id2 } = req.body;
 
+  if (id1 === id2) {
+    handleError(res, "dont scan yourself ;)");
+    return;
+  }
+
   const sql = `SELECT person.id
     FROM contact, person
     WHERE (contact.person1id = ?
