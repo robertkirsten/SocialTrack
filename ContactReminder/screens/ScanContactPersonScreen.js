@@ -24,7 +24,6 @@ export default class ScanContactPersonScreen extends Component {
     .catch(error => {
       console.log("Error occured: ", error);
     });
-
   };
 
   async componentDidMount() {

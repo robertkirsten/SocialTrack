@@ -6,7 +6,6 @@ import ShowContactPersonsScreen from '../screens/ShowContactPersonsScreen';
 import HomeScreen from "../screens/HomeScreen";
 
 const BottomTab = createBottomTabNavigator();
-const INITIAL_ROUTE_NAME = 'Home';
 
 export default function BottomTabNavigator({ navigation, route }) {
   // Set the header title on the parent stack navigator depending on the
@@ -15,7 +14,7 @@ export default function BottomTabNavigator({ navigation, route }) {
   navigation.setOptions({ headerTitle: getHeaderTitle(route) });
 
   return (
-    <BottomTab.Navigator initialRouteName={INITIAL_ROUTE_NAME}>
+    <BottomTab.Navigator initialRouteName={'HomeScreen'}>
       <BottomTab.Screen
         name="ScanContactPersonScreen"
         component={ShowQRCodeScreen}

@@ -8,28 +8,14 @@ import {
 } from 'react-native';
 import {ScrollView} from 'react-native-gesture-handler';
 import * as Permissions from 'expo-permissions';
-import {BarCodeScanner} from 'expo-barcode-scanner';
 import QRCode from 'react-qr-code';
 import Constants from 'expo-constants';
-import {RepositoryFactory} from '../API/RepositoryFactory';
 
-const postUserId = RepositoryFactory.get('postUserId');
 const deviceId = Constants.deviceId;
 
 export default class ShowQRCodeScreen extends Component {
   state = {
     hasPermission: null,
-  };
-
-  async postData(id) {
-    postUserId.postUserId(id).then(res => {
-      console.log("Connection succesfully added");
-      console.log(res.data);
-    })
-    .catch(error => {
-      console.log("Error occured: ", error);
-    });
-
   };
 
   async componentDidMount() {
