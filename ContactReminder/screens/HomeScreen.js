@@ -36,7 +36,7 @@ export default class HomeScreen extends React.Component {
 
   postInfectionMethod(userId) {
     if (this._isMounted) {
-      return infectedUser.postInfectedUser(5)
+      return infectedUser.postInfectedUser(userId)
         .then((res) => {
           console.log('Infection succesfully added');
           Popup.show({
