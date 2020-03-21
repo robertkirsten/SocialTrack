@@ -21,6 +21,7 @@ import * as Elements from 'react-native-elements';
 
 const deviceId = Constants.deviceId;
 const InfectionCall = RepositoryFactory.get('contactPersons');
+const infectedUser = RepositoryFactory.get('infectedUser');
 
 export default class HomeScreen extends React.Component {
 
@@ -50,7 +51,7 @@ export default class HomeScreen extends React.Component {
                   borderRadius:50,
                   text: 'SE'
                 }}
-                onPress={() => postInfectionMethod("user", "contacted")}
+                onPress={() => postInfectionMethod(5)}
             >
               <Icon name={"close"}  size={60} color="#ff0000" />
             </TouchableOpacity>
@@ -64,28 +65,27 @@ export default class HomeScreen extends React.Component {
   }
 }
 
-async function postInfectionMethod(user, contacted){
-  InfectionCall.postInfectionCall(user, contacted).then(res => {
+async function postInfectionMethod(userId){
+  return infectedUser.postInfectedUser(userId).then(res => {
     console.log("Infection succesfully added");
     Popup.show({
       type: 'Success',
       callback: () => Popup.hide(),
-      title: 'Sie haben hiermit 1000 Leben gerettet! Danke Dir endet die Quaramtäne!',
+      title: 'Sie haben hiermit 1000 Leben gerettet! Dank Dir endet die Quarantäne!',
     });
     console.log(res.data);
   })
-  .catch(error => {
-    Popup.show({
-      type: 'Danger',
-      callback: () => Popup.hide(),
-      title: 'Upload failed',
-      textBody: 'Sorry! Please upload again!',
+      .catch(error => {
+        Popup.show({
+          type: 'Danger',
+          callback: () => Popup.hide(),
+          title: 'Upload failed',
+          textBody: 'Sorry! Please upload again!',
 
-    });
-    console.log("Error occured: ", error);
-  });
+        });
+        console.log("Error occured: ", error);
+      });
 }
-
 HomeScreen.navigationOptions = {
   header: null,
 };

@@ -8,6 +8,8 @@ import {
 import * as Permissions from 'expo-permissions';
 import {BarCodeScanner} from 'expo-barcode-scanner';
 import {RepositoryFactory} from '../API/RepositoryFactory';
+import {Popup} from "popup-ui";
+const contactedUser = RepositoryFactory.get('contactedUsersRepository');
 
 const postUserId = RepositoryFactory.get('postUserId');
 
@@ -16,15 +18,27 @@ export default class ScanContactPersonScreen extends Component {
     hasPermission: null,
   };
 
-  async postData(id) {
-    postUserId.postUserId(id).then(res => {
-      console.log("Connection succesfully added");
+  async postscannedID(ownId, scannedId){
+    return contactedUser.postcontactedUsers(ownId, scannedId).then(res => {
+      Popup.show({
+        type: 'Success',
+        callback: () => Popup.hide(),
+        title: 'Person successful scanned!',
+      });
+      console.log("Fetched successfully all contacted Users");
       console.log(res.data);
     })
-    .catch(error => {
-      console.log("Error occured: ", error);
-    });
-  };
+        .catch(error => {
+          Popup.show({
+            type: 'Danger',
+            callback: () => Popup.hide(),
+            title: 'Download failed',
+            textBody: 'Sorry! Could not get your recent(ly) contacted persons!',
+
+          });
+          console.log("Error occured: ", error);
+        });
+  }
 
   async componentDidMount() {
     const {status} = await Permissions.askAsync(Permissions.CAMERA);
@@ -63,6 +77,8 @@ export default class ScanContactPersonScreen extends Component {
 ScanContactPersonScreen.navigationOptions = {
   header: null,
 };
+
+
 
 const styles = StyleSheet.create({
   container: {

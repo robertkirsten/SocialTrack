@@ -1,9 +1,11 @@
-import ContactPersonsRepository from "./apiCalls/ContactPersonsRepository"
+import contactedUsersRepository from "./apiCalls/contactedUsersRepository"
 import PostUserIdRepository from "./apiCalls/scannedQRCodeRepo"
+import InfectedUserIdRepository from "./apiCalls/infectedUserRepository"
 
 const repositories = {
-    contactPersons: ContactPersonsRepository,
+    contactedUsersRepository: contactedUsersRepository,
     postUserId: PostUserIdRepository,
+    infectedUser: InfectedUserIdRepository,
 };
 
 export const RepositoryFactory = {

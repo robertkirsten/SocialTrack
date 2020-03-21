@@ -4,8 +4,9 @@ import { Ionicons } from '@expo/vector-icons';
 import { RectButton, ScrollView } from 'react-native-gesture-handler';
 import {RepositoryFactory} from './../API/RepositoryFactory'
 import moment from 'moment';
+import {Popup} from "popup-ui";
 
-const contactPersonsRepository = RepositoryFactory.get('contactPersons');
+const contactedUsers = RepositoryFactory.get('contactedUsersRepository');
 
 export default class ShowContactPersonsScreen extends React.Component {
   constructor(props) {
@@ -40,9 +41,26 @@ export default class ShowContactPersonsScreen extends React.Component {
 
     this.fetchData(contactPersonsList);
   }
+async getcontactedUsers(userId){
+    return contactedUsers.getUsers(userId).then(res => {
+      console.log("Fetched successfully all contacted Users");
+      console.log(res.data);
+    })
+        .catch(error => {
+          Popup.show({
+            type: 'Danger',
+            callback: () => Popup.hide(),
+            title: 'Download failed',
+            textBody: 'Sorry! Could not get your recent(ly) contacted persons!',
 
+          });
+          console.log("Error occured: ", error);
+        });
+}
 //async ?
-  fetchData(contactPersonsList) {
+  fetchData(contactPersonsList, userId) {
+   // const persons = this.getcontactedUsers(userId);
+    //exchange this for API-Call
     const persons = contactPersonsList.sort((a, b) => a.timestamp > b.timestamp);
     let currentDate = '';
     let personNamesWithTitle = [];
