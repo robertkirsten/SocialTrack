@@ -50,14 +50,14 @@ export default class HomeScreen extends React.Component {
 async function postInfectionMethod(user, contacted){
 
   Popup.show({
-    type: 'Success'
+    type: 'Success',
+    callback: () => Popup.hide()
   });
   InfectionCall.postInfection(user, contacted).then(res => {
     console.log("Infection succesfully added");
     console.log(res.data);
   })
   .catch(error => {
-    ToastAndroid.show("An Error occured", 50);
     console.log("Error occured: ", error);
   });
 }
