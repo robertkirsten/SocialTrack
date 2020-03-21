@@ -6,10 +6,12 @@ import {
   Text,
   View,
   Button,
+  ToastAndroid
 } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import { RepositoryFactory } from '../API/RepositoryFactory';
 import Constants from 'expo-constants';
+
 
 const deviceId = Constants.deviceId;
 const InfectionCall = RepositoryFactory.get('infection');
@@ -27,7 +29,7 @@ export default class HomeScreen extends React.Component {
             <Button 
               style={styles.infectedButton}
               title={"I am Infected"}
-              onPress={postInfectionMethod(deviceId, "contacted")}
+              onPress={ToastAndroid.show("Hello Android", 50)}
                 //Alert.alert("Abfrage, ob wirklich infiziert hier Button einfügen der api call macht")}
             />
           </View>
@@ -38,6 +40,7 @@ export default class HomeScreen extends React.Component {
 }
 
 async function postInfectionMethod(user, contacted){
+
 
   InfectionCall.postInfection(user, contacted).then(res => {
     console.log("Infection succesfully added");

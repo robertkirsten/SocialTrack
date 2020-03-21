@@ -47,7 +47,7 @@ export default class ShowContactPersonsScreen extends React.Component {
     let currentDate = '';
     let personNamesWithTitle = [];
     
-    for (const person of persons){
+    for (const person of persons) {
       const personTime = moment(person.timestamp).locale('de').format('DD.MM.YYYY');
 
       if (personTime !== currentDate) {
