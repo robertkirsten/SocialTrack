@@ -76,7 +76,7 @@ export default class ShowContactPersonsScreen extends React.Component {
       <View style={styles.container}>
         <SectionList
           sections={personNamesWithTitle}
-          renderItem={({ item }) => <Text style={item.infected ? {color: "red"} : {color: "green"}}>{item.name}</Text>}
+          renderItem={({ item }) => <Text style={item.infected ? styles.itemInfected : styles.itemNotInfected}>{item.name}</Text>}
           renderSectionHeader={({ section }) => <Text style={styles.sectionHeader}>{section.title}</Text>}
           keyExtractor={(item, index) => index}
         />
@@ -121,7 +121,13 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     backgroundColor: 'rgba(247,247,247,1.0)',
   },
-  item: {
+  itemInfected: {
+    color:'red',
+    padding: 10,
+    fontSize: 18,
+    height: 44,
+  },
+  itemNotInfected: {
     padding: 10,
     fontSize: 18,
     height: 44,
