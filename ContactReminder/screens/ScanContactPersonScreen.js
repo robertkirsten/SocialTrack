@@ -4,15 +4,14 @@ import {
   View,
   StyleSheet,
   Button,
+  Platform
 } from 'react-native';
 import {ScrollView} from 'react-native-gesture-handler';
-import { Image, Platform, SectionList } from 'react-native';
-import * as uniqid from 'uniqid';s
-import * as RNFS from 'react-native-fs';
+// import * as uniqid from 'uniqid';
+// import * as RNFS from 'react-native-fs';
 import * as Permissions from 'expo-permissions';
 import {BarCodeScanner} from 'expo-barcode-scanner';
 import QRCode from 'react-qr-code';
-// import DeviceInfo from 'react-native-device-info';
 
 export default class ScanContactPersonScreen extends Component {
   state = {
@@ -25,7 +24,6 @@ export default class ScanContactPersonScreen extends Component {
     const {status} = await Permissions.askAsync(Permissions.CAMERA);
     this.setState({hasPermission: status === 'granted'});
 
-    // var id = DeviceInfo.getUniqueID();
     let id = "42";
     this.setState({ deviceId: id, });
   }
@@ -66,32 +64,31 @@ export default class ScanContactPersonScreen extends Component {
   }
 
   render() {
-    console.log('Render page');
-    const path = RNFS.DocumentDirectoryPath +'/uniqid.txt';
-    let id;
-    RNFS.exists(path).then((exists) => {
-      if (exists) {
-        console.log('File already exists');
-        RNFS.readFile(path, 'utf8')
-            .then((res) => {
-              id = res;
-            })
-            .catch((err) => {
-              console.log(err.message);
-            });
-      } else {
-        id = uniqid();
-        RNFS.writeFile(path, id, 'uft8')
-            .then((success) => {
-              console.log('Unique id written into file');
-            })
-            .catch((err) => {
-              console.log(err.message);
-            });
-      }
-    });
-    //const id = uniqid;
-    console.log(id);
+    // console.log('Render page');
+    // const path = RNFS.DocumentDirectoryPath +'/uniqid.txt';
+    // let id;
+    // RNFS.exists(path).then((exists) => {
+    //   if (exists) {
+    //     console.log('File already exists');
+    //     RNFS.readFile(path, 'utf8')
+    //         .then((res) => {
+    //           id = res;
+    //         })
+    //         .catch((err) => {
+    //           console.log(err.message);
+    //         });
+    //   } else {
+    //     id = uniqid();
+    //     RNFS.writeFile(path, id, 'uft8')
+    //         .then((success) => {
+    //           console.log('Unique id written into file');
+    //         })
+    //         .catch((err) => {
+    //           console.log(err.message);
+    //         });
+    //   }
+    // });
+    // const id = uniqid;
     const {
       scanning,
       deviceId,
