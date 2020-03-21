@@ -16,6 +16,10 @@ const deviceID = Constants.deviceId;
 const contactedUser = RepositoryFactory.get('contactedUsersRepository');
 
 export default class ScanContactPersonScreen extends Component {
+  constructor(props) {
+    super(props);
+    this._isMounted = false;
+  }
   state = {
     hasPermission: null,
   };
@@ -43,15 +47,22 @@ export default class ScanContactPersonScreen extends Component {
   }
 
   async componentDidMount() {
+    this._isMounted = true;
     const {status} = await Permissions.askAsync(Permissions.CAMERA);
-    this.setState({hasPermission: status === 'granted'});
+    if (this._isMounted) {
+      this.setState({hasPermission: status === 'granted'});
+    }
   }
 
-   handleBarCodeScanned = async ({type, data}) =>{
+  async componentWillUnmount() {
+    this._isMounted = false;
+  }
+
+  handleBarCodeScanned = async ({type, data}) =>{
     try {
       await this.postscannedID(data);
     }
-    catch(error){
+    catch(error) {
 
     }
     this.props.navigation.goBack();
