@@ -44,19 +44,20 @@ export default class ShowContactPersonsScreen extends React.Component {
 //async ?
   fetchData(contactPersonsList) {
     //this.state.contactPersonsList = await contactPersonsRepository.get(id);
-    const personNames = contactPersonsList.map(p => p.name).sort((a, b) => a.localeCompare(b))
-    let currentLetter = '';
+    const persons = contactPersonsList.sort((a, b) => a.timestamp > b.timestamp);
+    let currentDate = '';
     let personNamesWithTitle = [];
     
-    for (const name of personNames){
-      if (name.charAt(0).toUpperCase() !== currentLetter){
-        currentLetter = name.charAt(0);
+    for (const person of persons){
+      const personTime = moment(person.timestamp).locale('de').format('DD.MM.YYYY');
+      if (personTime !== currentDate) {
+        currentDate = personTime;
         personNamesWithTitle.push({
-          'title': currentLetter,
+          'title': currentDate,
           'data': []
         });
       }
-      personNamesWithTitle[personNamesWithTitle.length-1].data.push(name);
+      personNamesWithTitle[personNamesWithTitle.length-1].data.push(person.name);
     }
 
     this.setState({ personNamesWithTitle: personNamesWithTitle });
@@ -83,7 +84,7 @@ export default class ShowContactPersonsScreen extends React.Component {
     return (
       <View style={styles.container}>
         <SectionList
-          sections= { personNamesWithTitle }
+          sections={ personNamesWithTitle }
           renderItem={({item}) => <Text style={styles.item}>{item}</Text>}
           renderSectionHeader={({section}) => <Text style={styles.sectionHeader}>{section.title}</Text>}
           keyExtractor={(item, index) => index}
