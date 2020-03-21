@@ -9,17 +9,19 @@ import * as Permissions from 'expo-permissions';
 import {BarCodeScanner} from 'expo-barcode-scanner';
 import {RepositoryFactory} from '../API/RepositoryFactory';
 import {Popup} from "popup-ui";
-const contactedUser = RepositoryFactory.get('contactedUsersRepository');
+import Constants from 'expo-constants';
 
-const postUserId = RepositoryFactory.get('postUserId');
+const deviceID = Constants.deviceId;
+const contactedUser = RepositoryFactory.get('contactedUsersRepository');
 
 export default class ScanContactPersonScreen extends Component {
   state = {
     hasPermission: null,
   };
 
-  async postscannedID(ownId, scannedId){
-    return contactedUser.postcontactedUsers(ownId, scannedId).then(res => {
+  async postscannedID(scannedId){
+    return contactedUser.postcontactedUsers(deviceID, scannedId)
+    .then(res => {
       Popup.show({
         type: 'Success',
         callback: () => Popup.hide(),
@@ -28,16 +30,16 @@ export default class ScanContactPersonScreen extends Component {
       console.log("Fetched successfully all contacted Users");
       console.log(res.data);
     })
-        .catch(error => {
-          Popup.show({
-            type: 'Danger',
-            callback: () => Popup.hide(),
-            title: 'Download failed',
-            textBody: 'Sorry! Could not get your recent(ly) contacted persons!',
+    .catch(error => {
+      Popup.show({
+        type: 'Danger',
+        callback: () => Popup.hide(),
+        title: 'Download failed',
+        textBody: 'Sorry! Could not get your recent(ly) contacted persons!',
 
-          });
-          console.log("Error occured: ", error);
-        });
+      });
+      console.log("Error occured: ", error);
+    });
   }
 
   async componentDidMount() {
@@ -46,8 +48,7 @@ export default class ScanContactPersonScreen extends Component {
   }
 
   handleBarCodeScanned = ({type, data}) => {
-    alert(`Bar code with type ${type} and data ${data} has been scanned!`);
-    this.postscannedID(4, data);
+    this.postscannedID(data);
     this.props.navigation.goBack();
   };
 

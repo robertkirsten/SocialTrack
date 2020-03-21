@@ -2,7 +2,7 @@ const app = module.exports = require('express')();
 const db = require('../db');
 const handleError = require('../handleError');
 
-app.get('/contacted', (req, res) => {
+app.get('/', (req, res) => {
   const { id } = req.query;
 
   let sql = `SELECT person.id, person.firstname, person.lastname, contact.time

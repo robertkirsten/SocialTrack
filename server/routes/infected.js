@@ -2,7 +2,7 @@ const app = module.exports = require('express')();
 const db = require('../db');
 const handleError = require('../handleError');
 
-app.post('/infected', (req, res) => {
+app.post('/', (req, res) => {
   const { id } = req.body;
 
   let sql = `UPDATE person
