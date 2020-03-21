@@ -43,13 +43,13 @@ export default class ShowContactPersonsScreen extends React.Component {
 
 //async ?
   fetchData(contactPersonsList) {
-    //this.state.contactPersonsList = await contactPersonsRepository.get(id);
     const persons = contactPersonsList.sort((a, b) => a.timestamp > b.timestamp);
     let currentDate = '';
     let personNamesWithTitle = [];
     
     for (const person of persons){
       const personTime = moment(person.timestamp).locale('de').format('DD.MM.YYYY');
+
       if (personTime !== currentDate) {
         currentDate = personTime;
         personNamesWithTitle.push({
@@ -57,6 +57,7 @@ export default class ShowContactPersonsScreen extends React.Component {
           'data': []
         });
       }
+
       personNamesWithTitle[personNamesWithTitle.length-1].data.push(person.name);
     }
 
@@ -83,6 +84,7 @@ export default class ShowContactPersonsScreen extends React.Component {
     const { personNamesWithTitle } = this.state;
     return (
       <View style={styles.container}>
+        <this.OptionButton />
         <SectionList
           sections={ personNamesWithTitle }
           renderItem={({item}) => <Text style={styles.item}>{item}</Text>}
