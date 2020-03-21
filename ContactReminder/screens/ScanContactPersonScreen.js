@@ -10,6 +10,7 @@ import {BarCodeScanner} from 'expo-barcode-scanner';
 import {RepositoryFactory} from '../API/RepositoryFactory';
 import {Popup} from "popup-ui";
 import Constants from 'expo-constants';
+import Root from "popup-ui/src/basic/Root";
 
 const deviceID = Constants.deviceId;
 const contactedUser = RepositoryFactory.get('contactedUsersRepository');
@@ -21,7 +22,7 @@ export default class ScanContactPersonScreen extends Component {
 
   async postscannedID(scannedId) {
     try {
-      const res = await contactedUser.postcontactedUsers(deviceID, scannedId)
+      const res = await contactedUser.postcontactedUsers(deviceID, scannedId);
 
       Popup.show({
         type: 'Success',
@@ -46,8 +47,13 @@ export default class ScanContactPersonScreen extends Component {
     this.setState({hasPermission: status === 'granted'});
   }
 
-  async handleBarCodeScanned({type, data}) {
-    await this.postscannedID(data);
+   handleBarCodeScanned = async ({type, data}) =>{
+    try {
+      await this.postscannedID(data);
+    }
+    catch(error){
+
+    }
     this.props.navigation.goBack();
   };
 
@@ -62,6 +68,7 @@ export default class ScanContactPersonScreen extends Component {
     }
 
     return (
+        <Root>
       <View style={styles.container}>
         <View style={styles.getStartedContainer}>
           <Text style={{marginBottom: 10}}>Scanne den Barcode einer anderen Person, um euch zu verbinden.</Text>
@@ -71,6 +78,7 @@ export default class ScanContactPersonScreen extends Component {
           style={{flex: 1, marginBottom: 20}}
         />
       </View>
+        </Root>
     );
   }
 }
