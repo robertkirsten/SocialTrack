@@ -10,7 +10,7 @@ app.use(bodyParser.urlencoded({
 
 function handleError(res, err) {
   console.log(err);
-  res.status(402).send('an error occurred: ' + err);
+  res.status(418).send('an error occurred: ' + err);
 }
 
 //Push benachrichtigung von hier schicken
@@ -62,9 +62,35 @@ app.post('/infected', (req, res) => {
   res.send("");
 });
 
-function alertUser(){
-  //Send push Message to possibly infected user
-}
+app.get('/contacted', (req, res) => {
+  const { id } = req.query;
+
+  let sql = `SELECT person.id, person.firstname, person.lastname, contact.time
+    FROM contact, person
+    WHERE (contact.person1id = person.id
+    AND contact.person2id = ?)
+    OR (contact.person2id = person.id
+    AND contact.person1id = ?);`;
+
+  db.all(sql, [id, id], (err, rows) => {
+    if (err) return handleError(res, err);
+
+    res.status(200).send(rows);
+  })
+})
+
+app.post('/contacted', (req, res) => {
+  const { id1, id2 } = req.body;
+
+  let sql = `INSERT INTO contact (person1id, person2id)
+    VALUES (?, ?);`;
+  db.run(sql, [id1, id2], err => {
+    if (err) return handleError(res, err);
+
+    console.log(`added infection between ${id1} and ${id2}`);
+    res.status(200).send("");
+  })
+})
 
 app.listen(3000, function () {
   console.log('App listening on port 3000!');
