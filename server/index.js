@@ -35,12 +35,12 @@ app.get('/user', (req, res) => {
 app.post('/user', (req, res) => {
   const { id, firstname, lastname, infected } = req.body;
 
-  let sql = `INSERT OR IGNORE INTO person (id, firstname, lastname, infected)
+  let sql = `INSERT INTO person (id, firstname, lastname, infected)
     VALUES (?, ?, ?, ?);`;
   db.run(sql, [id, firstname, lastname, infected], err => {
     if (err) return handleError(res, err);
 
-    console.log(`stored person with ${id}`);
+    console.log(`stored person with id ${id}`);
     res.status(200).send("");
   })
 });
