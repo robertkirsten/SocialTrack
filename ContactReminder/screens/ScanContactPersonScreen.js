@@ -19,7 +19,7 @@ export default class ScanContactPersonScreen extends Component {
     hasPermission: null,
   };
 
-  async postscannedID(scannedId){
+  postscannedID(scannedId){
     return contactedUser.postcontactedUsers(deviceID, scannedId)
     .then(res => {
       Popup.show({
