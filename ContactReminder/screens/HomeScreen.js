@@ -19,26 +19,26 @@ import * as Elements from 'react-native-elements';
 const deviceId = Constants.deviceId;
 
 const infectedUser = RepositoryFactory.get('infectedUser');
-
 export default class HomeScreen extends React.Component {
 
-  _isMounted = false;
+  constructor(props) {
+    super(props);
+    this._isMounted = false;
+  }
+
 
   componentDidMount(){
-    _isMounted = true;
+    this._isMounted = true;
   }
 
   componentWillUnmount() {
-    _isMounted = false;
+    this._isMounted = false;
   }
 
-  state ={
-    isInfected: true,
-  };
 
-  async postInfectionMethod(userId){
-    if(_isMounted){
-      return await infectedUser.postInfectedUser(5)
+  postInfectionMethod(userId){
+    if(this._isMounted){
+      return infectedUser.postInfectedUser(5)
       .then(res => {
         console.log("Infection succesfully added");
         Popup.show({
@@ -64,11 +64,6 @@ export default class HomeScreen extends React.Component {
     return (
         <Root>
         <View style={styles.container}>
-
-
-          <View>
-
-          </View>
         <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
           <View style={styles.getStartedContainer}>
             <Text style={{fontWeight: 'bold', fontSize: 20}}>Sie haben sich infiziert? </Text>
@@ -86,7 +81,7 @@ export default class HomeScreen extends React.Component {
                   borderRadius:50,
                   text: 'SE'
                 }}
-                onPress={() => postInfectionMethod(5)}
+                onPress={() => this.postInfectionMethod(5)}
             >
               <Icon name={"close"}  size={60} color="#ff0000" />
             </TouchableOpacity>

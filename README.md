@@ -28,18 +28,11 @@ Geht man in einen Laden, fällt das der App auf und sie fragt, ob man in diesem 
 
 ## Technische Umsetzung
 
-
-
 ## ToDo
-+  **Wir müssen uns über die Verantwortlichkeiten der API/DB einig werden**
-
-* Entscheidung, ob wir eine DB nutzen wollen /lokales DB auf Smartphone --> Datenschutz?!
 * Finalisierung Frontend
-* API-Calls (für TBD)  und DB-Modellierung (Nutzung von AWS?)
 * timestamp und nach qr-code filtern in letzte Kontakte (+Headliner)
-* APP MUSS SCHÖNER WERDEN
-* Fix App for iPhone
-* REFACTOREN
+* Fix App for iPhone (tritt nur noch teilweise auf)
+* Liste für kontaktierte Personen benutzen
 
 ## Links
 
