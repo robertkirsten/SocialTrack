@@ -8,14 +8,44 @@ import {RepositoryFactory} from './../API/RepositoryFactory'
 const contactPersonsRepository = RepositoryFactory.get('contactPersons');
 
 export default class ShowContactPersonsScreen extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      contactPersonsList: [
+        {
+          name: "Johannes",
+          id: "2",
+          scan: "qr"
+        },
+        {
+          name: "Hannah",
+          id: "3",
+          scan: "qr"
+        },
+        {
+          name: "Tim",
+          id: "1",
+          scan: "bluetooth"
+        }
+      ],
+      contactPersonsListonlyQR: [],
+    }
+    }
+   //SAMPLE CODE
+    /*
+    contactPersonsListonlyQR: [
+      {title: 'D', data: ['Devin', 'Dan', 'Dominic']},
+      {title: 'J', data: ['Jackson', 'James', 'Jillian', 'Jimmy', 'Joel', 'John', 'Julie']},
+      ],
+     */
   render() {
+    const {contactPersonsListonlyQR} = this.state.contactPersonsListonlyQR;
+    const contactPersonsList = this.state.contactPersonsList;
+    //fetchData(contactPersonsList);
     return (
         <View style={styles.container}>
           <SectionList
-              sections={[
-                {title: 'D', data: ['Devin', 'Dan', 'Dominic']},
-                {title: 'J', data: ['Jackson', 'James', 'Jillian', 'Jimmy', 'Joel', 'John', 'Julie']},
-              ]}
+              sections= {fetchData(contactPersonsList)}
               renderItem={({item}) => <Text style={styles.item}>{item}</Text>}
               renderSectionHeader={({section}) => <Text style={styles.sectionHeader}>{section.title}</Text>}
               keyExtractor={(item, index) => index}
@@ -24,10 +54,50 @@ export default class ShowContactPersonsScreen extends Component {
     );
   }
 }
+//async
+function fetchData(contactPersonsList){
+  //this.state.contactPersonsList = await contactPersonsRepository.get(id);
+  let object = Object.values(contactPersonsList).sort(compare);
+  let currentLetter = 'A';
+  let currentIndex = 0;
+  let arraywithqr = [];
 
-async function fetchData(id){
-  const test = await contactPersonsRepository.get(id);
+  for(let i = 0;i < object.length; i++){
+      if(object[i].name.charAt(0) !== currentLetter){
+        arraywithqr.push(
+            {
+          'title': object[i].name.charAt(0),
+          'data': []
+        }
+        );
+        arraywithqr[currentIndex].data.push(object[i].name);
+
+        currentLetter = object[i].name.charAt(0);
+        currentIndex++;
+      }
+      else {
+        arraywithqr[currentIndex].name.push(object[i].name);
+      }
+  }
+  return arraywithqr;
+  //this.state.contactPersonsListonlyQR = arraywithqr;
+  //console.log(this.state.contactPersonsListonlyQR);
 }
+
+function compare(a, b) {
+  // Use toUpperCase() to ignore character casing
+  const nameA = a.name.toUpperCase();
+  const nameB = b.name.toUpperCase();
+
+  let comparison = 0;
+  if (nameA > nameB) {
+    comparison = 1;
+  } else if (nameA < nameB) {
+    comparison = -1;
+  }
+  return comparison;
+}
+
 
 function OptionButton({ icon, label, onPress, isLastOption }) {
   return (
