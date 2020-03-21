@@ -22,7 +22,8 @@ export default class ScanContactPersonScreen extends Component {
     const {status} = await Permissions.askAsync(Permissions.CAMERA);
     this.setState({hasPermission: status === 'granted'});
 
-    var id = DeviceInfo.getUniqueID();
+    // var id = DeviceInfo.getUniqueID();
+    let id = "42";
     this.setState({ deviceId: id, });
   }
 
@@ -78,7 +79,6 @@ export default class ScanContactPersonScreen extends Component {
             <Text>Dies ist dein persönlicher Code. Lass eine andere Person diesen Code scannen, um dich als Kontaktperson hinzuzufügen.</Text>
             <Text>{deviceId}</Text>
             <QRCode value={deviceId}/>
-
             <Text>Oder du scannst selbst den Code einer anderen Person.</Text>
             <Button
               title="Anderen Code scannen"
