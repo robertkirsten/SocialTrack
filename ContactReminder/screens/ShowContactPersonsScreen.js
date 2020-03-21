@@ -18,7 +18,7 @@ export default class ShowContactPersonsScreen extends Component {
           scan: "qr"
         },
         {
-          name: "Hannah",
+          name: "Jana",
           id: "3",
           scan: "qr"
         },
@@ -63,7 +63,7 @@ function fetchData(contactPersonsList){
   let arraywithqr = [];
 
   for(let i = 0;i < object.length; i++){
-      if(object[i].name.charAt(0) !== currentLetter){
+      if(object[i].name.charAt(0).toUpperCase() !== currentLetter){
         arraywithqr.push(
             {
           'title': object[i].name.charAt(0),
@@ -76,7 +76,17 @@ function fetchData(contactPersonsList){
         currentIndex++;
       }
       else {
-        arraywithqr[currentIndex].name.push(object[i].name);
+       // console.log(Object.values(arraywithqr[currentIndex].data));
+        if(arraywithqr[currentIndex].data){
+          console.log("HALLO");
+          arraywithqr.push(
+              {
+                'title': object[i].name.charAt(0),
+                'data': []
+              }
+          );
+        }
+        arraywithqr[currentIndex].data.push(object[i].name);
       }
   }
   return arraywithqr;
