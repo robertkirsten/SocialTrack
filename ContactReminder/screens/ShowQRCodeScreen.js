@@ -23,10 +23,6 @@ export default class ShowQRCodeScreen extends Component {
     this.setState({hasPermission: status === 'granted'});
   }
 
-  handleBarCodeScanned = ({type, data}) => {
-    alert(`Bar code with type ${type} and data ${data} has been scanned!`);
-  };
-
   render() {
     return (
       <View style={styles.container}>
