@@ -47,6 +47,7 @@ export default class ScanContactPersonScreen extends Component {
 
   handleBarCodeScanned = ({type, data}) => {
     alert(`Bar code with type ${type} and data ${data} has been scanned!`);
+    this.postscannedID(4, data);
     this.props.navigation.goBack();
   };
 

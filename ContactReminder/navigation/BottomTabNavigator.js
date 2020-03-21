@@ -27,6 +27,7 @@ export default function BottomTabNavigator({ navigation, route }) {
         name="HomeScreen"
         component={HomeScreen}
         options={{
+
           title: 'Übersicht',
           tabBarIcon: ({ focused }) => <TabBarIcon focused={focused} name="ios-information" />,
         }}
@@ -39,6 +40,7 @@ export default function BottomTabNavigator({ navigation, route }) {
           tabBarIcon: ({ focused }) => <TabBarIcon focused={focused} name="md-people" />,
         }}
       />
+
     </BottomTab.Navigator>
   );
 }
