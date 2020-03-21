@@ -28,6 +28,7 @@
     "expo-permissions": "~8.0.0",
     "expo-web-browser": "~8.0.0",
     "fs": "0.0.1-security",
+    "moment": "^2.24.0",
     "os": "^0.1.1",
     "react": "~16.9.0",
     "react-dom": "~16.9.0",

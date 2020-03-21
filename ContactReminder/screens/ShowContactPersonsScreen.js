@@ -1,10 +1,12 @@
 //import * as React, , { Component } from 'react';
 import React, {Component} from 'react';
 import {SectionList, StyleSheet, Text, View} from 'react-native';
-import { Ionicons } from '@expo/vector-icons';
+import {Ionicons} from '@expo/vector-icons';
 import * as WebBrowser from 'expo-web-browser';
-import { RectButton, ScrollView } from 'react-native-gesture-handler';
+import {RectButton, ScrollView} from 'react-native-gesture-handler';
 import {RepositoryFactory} from './../API/RepositoryFactory'
+import moment from "moment";
+
 const contactPersonsRepository = RepositoryFactory.get('contactPersons');
 
 export default class ShowContactPersonsScreen extends Component {
@@ -15,62 +17,71 @@ export default class ShowContactPersonsScreen extends Component {
         {
           name: "Johannes",
           id: "2",
-          scan: "qr"
+          scan: "qr",
+          timestamp: moment("20111031", "YYYYMMDD"),
         },
         {
           name: "Jana",
           id: "3",
-          scan: "qr"
+          scan: "qr",
+          timestamp: moment().startOf('day'),
         },
         {
           name: "Tim",
           id: "1",
-          scan: "bluetooth"
+          scan: "bluetooth",
+          timestamp: moment().startOf('hour'),
         }
       ],
       contactPersonsListonlyQR: [],
     }
-    }
-   //SAMPLE CODE
-    /*
-    contactPersonsListonlyQR: [
-      {title: 'D', data: ['Devin', 'Dan', 'Dominic']},
-      {title: 'J', data: ['Jackson', 'James', 'Jillian', 'Jimmy', 'Joel', 'John', 'Julie']},
-      ],
-     */
+  }
+
+  //SAMPLE CODE
+  /*
+  contactPersonsListonlyQR: [
+    {title: 'D', data: ['Devin', 'Dan', 'Dominic']},
+    {title: 'J', data: ['Jackson', 'James', 'Jillian', 'Jimmy', 'Joel', 'John', 'Julie']},
+    ],
+   */
   render() {
     const {contactPersonsListonlyQR} = this.state.contactPersonsListonlyQR;
     const contactPersonsList = this.state.contactPersonsList;
     //fetchData(contactPersonsList);
     return (
-        <View style={styles.container}>
-          <SectionList
-              sections= {fetchData(contactPersonsList)}
-              renderItem={({item}) => <Text style={styles.item}>{item}</Text>}
-              renderSectionHeader={({section}) => <Text style={styles.sectionHeader}>{section.title}</Text>}
-              keyExtractor={(item, index) => index}
-          />
-        </View>
+      <View style={styles.container}>
+        <SectionList
+          sections={fetchData(contactPersonsList)}
+          renderItem={({item}) => <Text style={styles.item}>{item}</Text>}
+          renderSectionHeader={({section}) => <Text style={styles.sectionHeader}>{section.title}</Text>}
+          keyExtractor={(item, index) => index}
+        />
+      </View>
     );
   }
 }
+
 //async
-function fetchData(contactPersonsList){
+function fetchData(contactPersonsList) {
   //this.state.contactPersonsList = await contactPersonsRepository.get(id);
 
   const persons = Object.values(contactPersonsList).sort(compare);
-  let currentLetter = '';
+  let currentDate = '';
   let personsWithTitle = [];
-  
-  for (const person of persons){
-    if (person.name.charAt(0).toUpperCase() !== currentLetter){
-      currentLetter = person.name.charAt(0);
+
+  for (let i = 0; i < persons.length; i++) {
+    const person = persons[i];
+
+    if (person === persons[0] || moment(persons[i - 1].timestamp).locale('de').format('DD.MM.YYYY')
+      !== moment(person.timestamp).locale('de').format('DD.MM.YYYY')) {
+      currentDate = moment(person.timestamp).locale('de').format('DD.MM.YYYY');
+
       personsWithTitle.push({
-        'title': currentLetter,
+        'title': currentDate,
         'data': []
       });
     }
-    personsWithTitle[personsWithTitle.length-1].data.push(person.name);
+    personsWithTitle[personsWithTitle.length - 1].data.push(person.name);
   }
   return personsWithTitle;
 
@@ -79,26 +90,21 @@ function fetchData(contactPersonsList){
 }
 
 function compare(a, b) {
-  // Use toUpperCase() to ignore character casing
-  const nameA = a.name.toUpperCase();
-  const nameB = b.name.toUpperCase();
-
-  let comparison = 0;
-  if (nameA > nameB) {
-    comparison = 1;
-  } else if (nameA < nameB) {
-    comparison = -1;
+  if (a.timestamp > b.timestamp) {
+    return -1;
+  } else if (a.timestamp < b.timestamp) {
+    return 1;
   }
-  return comparison;
+  return 0;
 }
 
 
-function OptionButton({ icon, label, onPress, isLastOption }) {
+function OptionButton({icon, label, onPress, isLastOption}) {
   return (
     <RectButton style={[styles.option, isLastOption && styles.lastOption]} onPress={onPress}>
-      <View style={{ flexDirection: 'row' }}>
+      <View style={{flexDirection: 'row'}}>
         <View style={styles.optionIconContainer}>
-          <Ionicons name={icon} size={22} color="rgba(0,0,0,0.35)" />
+          <Ionicons name={icon} size={22} color="rgba(0,0,0,0.35)"/>
         </View>
         <View style={styles.optionTextContainer}>
           <Text style={styles.optionText}>{label}</Text>
