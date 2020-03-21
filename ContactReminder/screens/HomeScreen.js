@@ -16,22 +16,49 @@ import Constants from 'expo-constants';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import * as Elements from 'react-native-elements';
 
-
-
-
 const deviceId = Constants.deviceId;
 
 const infectedUser = RepositoryFactory.get('infectedUser');
 
 export default class HomeScreen extends React.Component {
 
-  componentWillUnmount() {
+  _isMounted = false;
 
+  componentDidMount(){
+    _isMounted = true;
+  }
+
+  componentWillUnmount() {
+    _isMounted = false;
   }
 
   state ={
     isInfected: true,
   };
+
+  async postInfectionMethod(userId){
+    if(_isMounted){
+      return await infectedUser.postInfectedUser(5)
+      .then(res => {
+        console.log("Infection succesfully added");
+        Popup.show({
+          type: 'Success',
+          callback: () => Popup.hide(),
+          title: 'Sie haben hiermit 1000 Leben gerettet! Dank Dir endet die Quarantäne!',
+        });
+        console.log(res.data);
+      })
+      .catch(error => {
+        Popup.show({
+          type: 'Danger',
+          callback: () => Popup.hide(),
+          title: 'Upload failed',
+          textBody: 'Sorry! Please upload again!',
+        });
+        console.log("Error occured: ", error);
+      });
+    }
+  }
 
   render() {
     return (
@@ -74,28 +101,6 @@ export default class HomeScreen extends React.Component {
   }
 }
 
-
-
-async function postInfectionMethod(userId){
-  return await infectedUser.postInfectedUser(5).then(res => {
-    console.log("Infection succesfully added");
-    Popup.show({
-      type: 'Success',
-      callback: () => Popup.hide(),
-      title: 'Sie haben hiermit 1000 Leben gerettet! Dank Dir endet die Quarantäne!',
-    });
-    console.log(res.data);
-  })
-      .catch(error => {
-        Popup.show({
-          type: 'Danger',
-          callback: () => Popup.hide(),
-          title: 'Upload failed',
-          textBody: 'Sorry! Please upload again!',
-        });
-        console.log("Error occured: ", error);
-      });
-}
 HomeScreen.navigationOptions = {
   header: null,
 };
