@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {
   Text,
   View,
+  Alert,
   StyleSheet,
   Platform
 } from 'react-native';
@@ -25,9 +26,11 @@ export default class ScanContactPersonScreen extends Component {
   };
 
   async postscannedID(scannedId) {
-    try {
-      const res = await contactedUser.postcontactedUsers(deviceID, scannedId);
 
+    try {
+      console.log("HALLO");
+      const res = await contactedUser.postcontactedUsers(deviceID, scannedId);
+/*
       Popup.show({
         type: 'Success',
         callback: () => Popup.hide(),
@@ -35,6 +38,9 @@ export default class ScanContactPersonScreen extends Component {
       });
       console.log("Fetched successfully all contacted Users");
       console.log(res.data);
+      */
+    Alert.alert("TEST", 'MEssage',[{text: 'OK', onPress: () => console.log('OK Pressed')},]);
+
     } catch (error) {
       Popup.show({
         type: 'Danger',
