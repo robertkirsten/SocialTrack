@@ -15,6 +15,4 @@ app.post('/', (req, res) => {
     console.log(`Person ${id} got infected`);
     res.status(200).send("");
   })
-
-  res.send("");
 });
