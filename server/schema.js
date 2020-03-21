@@ -12,4 +12,4 @@ module.exports = `CREATE TABLE IF NOT EXISTS person (
     FOREIGN KEY (person1id) REFERENCES person (id),
     FOREIGN KEY (person2id) REFERENCES person (id)
   );
-`
+`;

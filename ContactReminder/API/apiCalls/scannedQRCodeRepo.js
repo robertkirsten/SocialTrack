@@ -1,9 +1,9 @@
-import Repository from "../repository";
+import Repository from '../repository';
 
-const resource = "/userID";
+const resource = '/userID';
 
 export default ({
-    postInfection(id){
-        return Repository.post(`${resource}?userId=`, {id})
-    }
-})
+  postInfection(id) {
+    return Repository.post(`${resource}?userId=`, { id });
+  },
+});

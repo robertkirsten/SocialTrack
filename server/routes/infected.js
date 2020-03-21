@@ -5,7 +5,7 @@ const handleError = require('../handleError');
 app.post('/', (req, res) => {
   const { id } = req.body;
 
-  let sql = `UPDATE person
+  const sql = `UPDATE person
     SET infected = 1
     WHERE id = ?;`;
 
@@ -13,6 +13,6 @@ app.post('/', (req, res) => {
     if (err) return handleError(res, err);
 
     console.log(`Person ${id} got infected`);
-    res.status(200).send("");
-  })
+    res.status(200).send('');
+  });
 });

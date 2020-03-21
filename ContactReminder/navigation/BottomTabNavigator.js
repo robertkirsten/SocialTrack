@@ -3,7 +3,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import TabBarIcon from '../components/TabBarIcon';
 import ShowQRCodeScreen from '../screens/ShowQRCodeScreen';
 import ShowContactPersonsScreen from '../screens/ShowContactPersonsScreen';
-import HomeScreen from "../screens/HomeScreen";
+import HomeScreen from '../screens/HomeScreen';
 
 const BottomTab = createBottomTabNavigator();
 
@@ -46,12 +46,12 @@ export default function BottomTabNavigator({ navigation, route }) {
 }
 
 function getHeaderTitle(route) {
-  /*const routeName = route.state?.routes[route.state.index]?.name ?? INITIAL_ROUTE_NAME;
+  /* const routeName = route.state?.routes[route.state.index]?.name ?? INITIAL_ROUTE_NAME;
 
   switch (routeName) {
-    case 'Home':*/
-      return 'CoronaTracking';
-    /*case 'Links':
+    case 'Home': */
+  return 'CoronaTracking';
+  /* case 'Links':
       return 'Links to learn more';
-  }*/
+  } */
 }

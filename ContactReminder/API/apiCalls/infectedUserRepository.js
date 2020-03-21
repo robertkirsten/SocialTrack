@@ -1,16 +1,16 @@
-import Repository from "../repository";
+import Repository from '../repository';
 
-const resource = "/infected";
+const resource = '/infected';
 
 export default ({
-    postInfectedUser(userId) {
-        return Repository.post(resource, {
-            id: userId,
-        });
-    },
-    posthealthenedUser(userId) {
-        return Repository.post(resource, {
-            id: userId,
-        });
-    }
+  postInfectedUser(userId) {
+    return Repository.post(resource, {
+      id: userId,
+    });
+  },
+  posthealthenedUser(userId) {
+    return Repository.post(resource, {
+      id: userId,
+    });
+  },
 });

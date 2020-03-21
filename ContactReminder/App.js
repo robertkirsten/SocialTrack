@@ -1,15 +1,18 @@
 import * as React from 'react';
-import {Button, Platform, StatusBar, StyleSheet, TouchableOpacity, View} from 'react-native';
+import {
+  Button, Platform, StatusBar, StyleSheet, TouchableOpacity, View,
+} from 'react-native';
 import { SplashScreen } from 'expo';
 import * as Font from 'expo-font';
 import { Ionicons } from '@expo/vector-icons';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
+import Icon from 'react-native-vector-icons';
 import BottomTabNavigator from './navigation/BottomTabNavigator';
 import useLinking from './navigation/useLinking';
 import ScanContactPersonScreen from './screens/ScanContactPersonScreen';
-import SettingsScreen from './screens/SettingsScreen'
-import Icon from "react-native-vector-icons";
+import SettingsScreen from './screens/SettingsScreen';
+
 const Stack = createStackNavigator();
 
 export default function App(props) {
@@ -46,28 +49,27 @@ export default function App(props) {
 
   if (!isLoadingComplete && !props.skipLoadingScreen) {
     return null;
-  } else {
-    return (
-      <View style={styles.container}>
-        {Platform.OS === 'ios' && <StatusBar barStyle="default" />}
-        <NavigationContainer ref={containerRef} initialState={initialNavigationState}>
-          <Stack.Navigator>
-            <Stack.Screen name="Root" component={BottomTabNavigator} options={({ navigation }) => ({
-              headerRight: () => (
-                  <Button
-                      onPress={() => navigation.push('SettingsScreen')}
-                      title="Settings"
-                      color="#00cc00"
-                  />
-              ),
-            })}/>
-            <Stack.Screen name="ScanContactPersonScreen" component={ScanContactPersonScreen} />
-            <Stack.Screen name="SettingsScreen" component={SettingsScreen}  />
-          </Stack.Navigator>
-        </NavigationContainer>
-      </View>
-    );
   }
+  return (
+    <View style={styles.container}>
+      {Platform.OS === 'ios' && <StatusBar barStyle="default" />}
+      <NavigationContainer ref={containerRef} initialState={initialNavigationState}>
+        <Stack.Navigator>
+          <Stack.Screen name="Root" component={BottomTabNavigator} options={({ navigation }) => ({
+            headerRight: () => (
+              <Button
+                onPress={() => navigation.push('SettingsScreen')}
+                title="Settings"
+                color="#00cc00"
+              />
+            ),
+          })}/>
+          <Stack.Screen name="ScanContactPersonScreen" component={ScanContactPersonScreen} />
+          <Stack.Screen name="SettingsScreen" component={SettingsScreen} />
+        </Stack.Navigator>
+      </NavigationContainer>
+    </View>
+  );
 }
 
 const styles = StyleSheet.create({

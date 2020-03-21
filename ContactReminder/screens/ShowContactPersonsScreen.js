@@ -1,10 +1,12 @@
-import * as React  from 'react';
-import { SectionList, StyleSheet, Text, View } from 'react-native';
+import * as React from 'react';
+import {
+  SectionList, StyleSheet, Text, View,
+} from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { RectButton, ScrollView } from 'react-native-gesture-handler';
-import {RepositoryFactory} from './../API/RepositoryFactory'
 import moment from 'moment';
-import {Popup} from "popup-ui";
+import { Popup } from 'popup-ui';
+import { RepositoryFactory } from '../API/RepositoryFactory';
 
 const contactedUsers = RepositoryFactory.get('contactedUsersRepository');
 
@@ -14,76 +16,80 @@ export default class ShowContactPersonsScreen extends React.Component {
     this.state = {
       contactPersonsList: [
         {
-          name: "Johannes",
-          id: "2",
-          scan: "qr",
-          timestamp: moment("20111031", "YYYYMMDD"),
+          name: 'Johannes',
+          id: '2',
+          scan: 'qr',
+          timestamp: moment('20111031', 'YYYYMMDD'),
         },
         {
-          name: "Jana",
-          id: "3",
-          scan: "qr",
+          name: 'Jana',
+          id: '3',
+          scan: 'qr',
           timestamp: moment().startOf('day'),
         },
         {
-          name: "Tim",
-          id: "1",
-          scan: "bluetooth",
+          name: 'Tim',
+          id: '1',
+          scan: 'bluetooth',
           timestamp: moment().startOf('hour'),
-        }
+        },
       ],
       personNamesWithTitle: [],
-    }
+    };
   }
-  
+
   async componentDidMount() {
     const { contactPersonsList } = this.state;
 
     this.fetchData(contactPersonsList);
   }
-async getcontactedUsers(userId){
-    return contactedUsers.getUsers(userId).then(res => {
-      console.log("Fetched successfully all contacted Users");
+
+  async getcontactedUsers(userId) {
+    return contactedUsers.getUsers(userId).then((res) => {
+      console.log('Fetched successfully all contacted Users');
       console.log(res.data);
     })
-        .catch(error => {
-          Popup.show({
-            type: 'Danger',
-            callback: () => Popup.hide(),
-            title: 'Download failed',
-            textBody: 'Sorry! Could not get your recent(ly) contacted persons!',
+      .catch((error) => {
+        Popup.show({
+          type: 'Danger',
+          callback: () => Popup.hide(),
+          title: 'Download failed',
+          textBody: 'Sorry! Could not get your recent(ly) contacted persons!',
 
-          });
-          console.log("Error occured: ", error);
         });
-}
-//async ?
+        console.log('Error occured: ', error);
+      });
+  }
+
+  // async ?
   fetchData(contactPersonsList, userId) {
-   // const persons = this.getcontactedUsers(userId);
-    //exchange this for API-Call
+    // const persons = this.getcontactedUsers(userId);
+    // exchange this for API-Call
     const persons = contactPersonsList.sort((a, b) => a.timestamp > b.timestamp);
     let currentDate = '';
-    let personNamesWithTitle = [];
-    
+    const personNamesWithTitle = [];
+
     for (const person of persons) {
       const personTime = moment(person.timestamp).locale('de').format('DD.MM.YYYY');
 
       if (personTime !== currentDate) {
         currentDate = personTime;
         personNamesWithTitle.push({
-          'title': currentDate,
-          'data': []
+          title: currentDate,
+          data: [],
         });
       }
 
-      personNamesWithTitle[personNamesWithTitle.length-1].data.push(person.name);
+      personNamesWithTitle[personNamesWithTitle.length - 1].data.push(person.name);
     }
 
-    this.setState({ personNamesWithTitle: personNamesWithTitle });
+    this.setState({ personNamesWithTitle });
     return personNamesWithTitle;
   }
 
-  OptionButton({ icon, label, onPress, isLastOption }) {
+  OptionButton({
+    icon, label, onPress, isLastOption,
+  }) {
     return (
       <RectButton style={[styles.option, isLastOption && styles.lastOption]} onPress={onPress}>
         <View style={{ flexDirection: 'row' }}>
@@ -105,8 +111,8 @@ async getcontactedUsers(userId){
         <this.OptionButton />
         <SectionList
           sections={ personNamesWithTitle }
-          renderItem={({item}) => <Text style={styles.item}>{item}</Text>}
-          renderSectionHeader={({section}) => <Text style={styles.sectionHeader}>{section.title}</Text>}
+          renderItem={({ item }) => <Text style={styles.item}>{item}</Text>}
+          renderSectionHeader={({ section }) => <Text style={styles.sectionHeader}>{section.title}</Text>}
           keyExtractor={(item, index) => index}
         />
       </View>

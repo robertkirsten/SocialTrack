@@ -7,4 +7,4 @@ app.use('/infected', require('./infected'));
 app.use('/contacted', require('./contacted'));
 
 // catch all errors
-app.all('*', (req, res) => res.status(404).send('not found'))
+app.all('*', (req, res) => res.status(404).send('not found'));

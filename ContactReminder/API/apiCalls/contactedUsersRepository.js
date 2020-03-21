@@ -1,15 +1,15 @@
-import Repository from "../repository";
+import Repository from '../repository';
 
-const resource = "/contacted";
+const resource = '/contacted';
 
 export default ({
-    postcontactedUsers(userId1, userId2) {
-        return Repository.post(resource, {
-            id1: userId1,
-            id2: userId2,
-        })
-    },
-    getUsers(userId){
-        return Repository.get(`${resource}?id=${userId}`)
-    }
+  postcontactedUsers(userId1, userId2) {
+    return Repository.post(resource, {
+      id1: userId1,
+      id2: userId2,
+    });
+  },
+  getUsers(userId) {
+    return Repository.get(`${resource}?id=${userId}`);
+  },
 });

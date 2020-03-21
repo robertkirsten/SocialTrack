@@ -1,20 +1,20 @@
-import Repository from "../repository";
+import Repository from '../repository';
 
-const resource = "/user";
+const resource = '/user';
 
 export default ({
-    getUser(userId){
-        return Repository.get(`${resource}?id=${userId}`)
-    },
-    postUserData(userId, infected, firstname, lastname) {
-        console.log(userId + firstname);
+  getUser(userId) {
+    return Repository.get(`${resource}?id=${userId}`);
+  },
+  postUserData(userId, infected, firstname, lastname) {
+    console.log(userId + firstname);
 
-        return Repository.post(resource, {
-            id: userId,
-            firstname: firstname,
-            lastname: lastname,
-            infected: infected,
-        }, {headers: {'Content-Type': 'application/json'}})
-        .then(response => console.log(response.data));
-    }
+    return Repository.post(resource, {
+      id: userId,
+      firstname,
+      lastname,
+      infected,
+    }, { headers: { 'Content-Type': 'application/json' } })
+      .then((response) => console.log(response.data));
+  },
 });

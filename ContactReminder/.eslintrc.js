@@ -27,9 +27,9 @@ module.exports = {
     'max-len': 'off',
     'linebreak-style': 'off',
     'no-plusplus': 'off',
+    'no-console': 'off',
     'no-use-before-define': 'off',
     'no-new': 'off',
     'import/prefer-default-export': 'off',
-    'indent': ['error', 2, {'SwitchCase': 1}],
   },
 };
