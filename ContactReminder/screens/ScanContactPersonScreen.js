@@ -36,7 +36,6 @@ export default class ScanContactPersonScreen extends Component {
         callback: () => Popup.hide(),
         title: 'Download failed',
         textBody: 'Sorry! Could not get your recent(ly) contacted persons!',
-
       });
       console.log("Error occured: ", error);
     });
@@ -47,13 +46,13 @@ export default class ScanContactPersonScreen extends Component {
     this.setState({hasPermission: status === 'granted'});
   }
 
-  handleBarCodeScanned = ({type, data}) => {
-    this.postscannedID(data);
+  async handleBarCodeScanned ({type, data}) {
+    await this.postscannedID(data);
     this.props.navigation.goBack();
   };
 
   render() {
-    const {hasCameraPermission} = this.state;
+    const { hasCameraPermission } = this.state;
 
     if (hasCameraPermission === null) {
       return <Text> Requesting for camera permission </Text>;
@@ -79,8 +78,6 @@ export default class ScanContactPersonScreen extends Component {
 ScanContactPersonScreen.navigationOptions = {
   header: null,
 };
-
-
 
 const styles = StyleSheet.create({
   container: {
