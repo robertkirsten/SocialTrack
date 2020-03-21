@@ -17,6 +17,7 @@ app.get('/', (req, res) => {
 
 app.post('/', (req, res) => {
   const { id, firstname, lastname, infected } = req.body;
+  console.log(req.body);
 
   let sql = `SELECT *
     FROM person
