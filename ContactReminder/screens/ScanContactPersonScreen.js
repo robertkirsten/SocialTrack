@@ -19,9 +19,10 @@ export default class ScanContactPersonScreen extends Component {
     hasPermission: null,
   };
 
-  postscannedID(scannedId){
-    return contactedUser.postcontactedUsers(deviceID, scannedId)
-    .then(res => {
+  async postscannedID(scannedId) {
+    try {
+      const res = await contactedUser.postcontactedUsers(deviceID, scannedId)
+
       Popup.show({
         type: 'Success',
         callback: () => Popup.hide(),
@@ -29,8 +30,7 @@ export default class ScanContactPersonScreen extends Component {
       });
       console.log("Fetched successfully all contacted Users");
       console.log(res.data);
-    })
-    .catch(error => {
+    } catch (error) {
       Popup.show({
         type: 'Danger',
         callback: () => Popup.hide(),
@@ -38,7 +38,7 @@ export default class ScanContactPersonScreen extends Component {
         textBody: 'Sorry! Could not get your recent(ly) contacted persons!',
       });
       console.log("Error occured: ", error);
-    });
+    }
   }
 
   async componentDidMount() {
@@ -46,13 +46,13 @@ export default class ScanContactPersonScreen extends Component {
     this.setState({hasPermission: status === 'granted'});
   }
 
-  async handleBarCodeScanned ({type, data}) {
+  async handleBarCodeScanned({type, data}) {
     await this.postscannedID(data);
     this.props.navigation.goBack();
   };
 
   render() {
-    const { hasCameraPermission } = this.state;
+    const {hasCameraPermission} = this.state;
 
     if (hasCameraPermission === null) {
       return <Text> Requesting for camera permission </Text>;
