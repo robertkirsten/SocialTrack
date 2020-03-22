@@ -31,16 +31,14 @@ export default class SettingsScreen extends React.Component {
 
   componentDidMount() {
     this._isMounted = true;
-    console.log('test');
     user.getUser(deviceID)
       .then((res) => {
-        console.log("test", res.data);
         if (res.data) {
           console.log('already registered');
           this.props.navigation.replace('Root');
         } else {
           console.log('not registered');
-          this.setState({ loading: false });
+          this.setStateIfMounted({ loading: false });
         }
       })
       .catch((err) => {
