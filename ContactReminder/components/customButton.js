@@ -9,8 +9,8 @@ export const CustomButton = (props) => {
 
   return (
         <TouchableOpacity
-            onPress={onPress} style={[styles.button, style]}>
-            <Text style={[styles.text, textStyle]}>{props.title}</Text>
+          onPress={onPress} style={[styles.button, style]}>
+          <Text style={[styles.text, textStyle]}>{props.title}</Text>
         </TouchableOpacity>
   );
 };

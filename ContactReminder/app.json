@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "CoronaTracking",
-    "slug": "CoronaTracking",
+    "name": "SocialTrack",
+    "slug": "SocialTrack",
     "privacy": "public",
     "sdkVersion": "36.0.0",
     "platforms": [

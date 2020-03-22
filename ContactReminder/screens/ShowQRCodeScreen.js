@@ -3,20 +3,14 @@ import {
   Text,
   View,
   StyleSheet,
-  Button,
   Platform,
 } from 'react-native';
 
 import { ScrollView } from 'react-native-gesture-handler';
 import * as Permissions from 'expo-permissions';
-// import QRCode from 'react-qr-code';
 import Constants from 'expo-constants';
-// import QRCode from 'react-native-qrcode';
-// import QRCode from 'react-native-qrcode-generator';
-// import QRCode from 'react-native-qrcode-svg';
-// import { QRCode } from 'react-native-custom-qr-codes-expo';
-// import SvgQRCode from 'react-native-qrcode-svg';
 import { QRCode as CustomQRCode } from 'react-native-custom-qr-codes-expo';
+import { CustomButton } from '../components/customButton';
 
 
 const { deviceId } = Constants;
@@ -44,18 +38,18 @@ export default class ShowQRCodeScreen extends Component {
             <Text style={{
               marginBottom: 30, fontWeight: 'bold', fontSize: 35, textAlign: 'left',
             }}>Kontaktperson hinzufügen</Text>
-            <Text>Scane den QR-Code einer anderen Person, um euch zu verbinden.</Text>
             <View style={styles.container2}>
-            {/* <CustomQRCode codeStyle="circle" /> */}
-            <CustomQRCode content={deviceId} />
+            <CustomQRCode
+              content={deviceId}
+              logo={require('../assets/images/coronaicon.png')}
+            />
             </View>
             <Text>  </Text>
             <Text>  </Text>
-            <Button
-                styles = {styles.Button}
-              title="Anderen Code scannen"
-
-              onPress={() => this.props.navigation.push('ScanContactPersonScreen')}/>
+            <CustomButton
+              title="   Anderen Code scannen   "
+              onPress={() => this.props.navigation.push('ScanContactPersonScreen')}
+            />
           </View>
         </ScrollView>
       </View>
