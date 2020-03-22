@@ -45,6 +45,7 @@
     "react-native-device-info": "^5.5.3",
     "react-native-elements": "^1.2.7",
     "react-native-gesture-handler": "~1.5.0",
+    "react-native-popup-dialog": "^0.18.3",
     "react-native-qr-generator": "^1.0.4",
     "react-native-qrcode": "^0.2.7",
     "react-native-qrcode-generator": "^1.1.0",
