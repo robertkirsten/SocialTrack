@@ -35,6 +35,7 @@ export default class ShowContactPersonsScreen extends React.Component {
   getContactedUsers() {
     return contactedUsers.getUsers(deviceID)
       .then((res) => {
+        console.log(res.data);
         // eslint-disable-next-line no-restricted-syntax
         for (const person of res.data) {
           person.time = moment(person.time);
@@ -49,13 +50,14 @@ export default class ShowContactPersonsScreen extends React.Component {
 
   // eslint-disable-next-line class-methods-use-this
   transformData(contactPersonsList) {
-    const persons = contactPersonsList.sort((a, b) => a.timestamp > b.timestamp);
+    const persons = contactPersonsList.sort((a, b) => a.time > b.time);
     let currentDate = '';
     const personNamesWithTitle = [];
 
     // eslint-disable-next-line no-restricted-syntax
     for (const person of persons) {
-      const personTime = moment(person.timestamp).format('DD.MM.YYYY, HH [Uhr]');
+      const personTime = moment(person.time).format('DD.MM.YYYY, HH [Uhr]');
+          console.log(personTime);
 
       if (personTime !== currentDate) {
         currentDate = personTime;

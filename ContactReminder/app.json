@@ -10,7 +10,7 @@
     ],
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/images/coronaicon.png",
+    "icon": "./assets/images/coronacomic.png",
     "scheme": "myapp",
     "splash": {
       "image": "./assets/images/splash.png",
@@ -27,7 +27,7 @@
       "supportsTablet": true,
       "bundleIdentifier": "com.yourcompany.yourappname",
       "buildNumber": "1.0.0",
-      "icon": "./assets/images/coronaiconios.png"
+      "icon": "./assets/images/coronacomic_ios.png"
 
     },
     "android": {

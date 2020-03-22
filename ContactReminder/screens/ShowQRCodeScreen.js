@@ -41,7 +41,7 @@ export default class ShowQRCodeScreen extends Component {
             <View style={styles.container2}>
             <CustomQRCode
               content={deviceId}
-              logo={require('../assets/images/coronaicon.png')}
+              logo={require('../assets/images/coronacomic.png')}
             />
             </View>
             <Text>  </Text>
