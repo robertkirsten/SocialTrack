@@ -39,7 +39,7 @@ export default class ScanContactPersonScreen extends Component {
       console.log("Fetched successfully all contacted Users");
       console.log(res.data);
       */
-    Alert.alert("Erfolg!", 'QR-Code wurde erfolgreich gescannt!',[{text: 'OK', onPress: () => console.log('OK Pressed')},]);
+
 
     } catch (error) {
       /*

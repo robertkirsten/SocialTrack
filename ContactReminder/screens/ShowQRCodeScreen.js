@@ -28,11 +28,14 @@ export default class ShowQRCodeScreen extends Component {
       <View style={styles.container}>
         <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
           <View style={styles.getStartedContainer}>
-            <Text style={{marginBottom: 30}}>Scan QR-Code</Text>
+            <Text style={{marginBottom: 30, fontWeight: 'bold', fontSize: 35, textAlign: 'left'}}>Scan QR-Code</Text>
             <QRCode value={deviceId}/>
-            <Text style={{marginTop: 50, marginBottom: 10}}>Oder du scannst selbst den Code einer anderen Person.</Text>
+            <Text>  </Text>
+            <Text>  </Text>
             <Button
+                styles = {styles.Button}
               title="Anderen Code scannen"
+
               onPress={() => this.props.navigation.push('ScanContactPersonScreen')}/>
           </View>
         </ScrollView>
@@ -49,6 +52,10 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
+  },
+  Button: {
+    fontSize: 50,
+
   },
   developmentModeText: {
     marginBottom: 20,

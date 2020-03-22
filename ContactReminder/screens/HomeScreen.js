@@ -177,12 +177,12 @@ export default class HomeScreen extends React.Component {
               <CustomButton
                 id="test"
                 title="   Ich bin krank!   "
-                onPress={() => this.postInfectionMethod(deviceId)}
+
+                onPress={() =>  Alert.alert('Überprüfung', 'Sind Sie wirklich infiziert?', [{ text: 'Ja', onPress: () => this.postInfectionMethod(deviceId) }, { text: 'Nein', onPress: () => console.log("Nein Pressed")}])}
                 style={{ backgroundColor: '#c00200', shadowColor: '#c00004' }}
                 // textStyle={{ /* styles for button title */ }}
               />
               <Text style={styles.getStartedText}> </Text>
-
             </View>
           </ScrollView>
 
