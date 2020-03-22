@@ -23,4 +23,4 @@ Speichere Personen mit denen du in Kontakt warst, indem du einfach mit der Socia
 
 ## Links
 
-INSERT DEVPOST link here
+*  [Project page on Devpost](https://devpost.com/software/contactreminder)
