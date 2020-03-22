@@ -6,8 +6,8 @@ import { Ionicons } from '@expo/vector-icons';
 import { RectButton, ScrollView } from 'react-native-gesture-handler';
 import moment from 'moment';
 import { Popup } from 'popup-ui';
-import { RepositoryFactory } from '../API/RepositoryFactory';
 import Constants from 'expo-constants';
+import { RepositoryFactory } from '../API/RepositoryFactory';
 
 const deviceID = Constants.deviceId;
 const contactedUsers = RepositoryFactory.get('contactedUsersRepository');
@@ -27,13 +27,12 @@ export default class ShowContactPersonsScreen extends React.Component {
 
   getContactedUsers() {
     return contactedUsers.getUsers(deviceID)
-    .then((res) => {
-      for (const person of res.data) {
-        person.time = moment(person.time);
-      }
-      this.setState({ personNamesWithTitle: this.transformData(res.data) });
-
-    })
+      .then((res) => {
+        for (const person of res.data) {
+          person.time = moment(person.time);
+        }
+        this.setState({ personNamesWithTitle: this.transformData(res.data) });
+      })
       .catch((error) => {
         Popup.show({
           type: 'Danger',
@@ -64,7 +63,7 @@ export default class ShowContactPersonsScreen extends React.Component {
       console.log(person);
       personNamesWithTitle[personNamesWithTitle.length - 1].data.push({
         infected: person.infected,
-        name: `${person.firstname} ${person.lastname}`
+        name: `${person.firstname} ${person.lastname}`,
       });
     }
 

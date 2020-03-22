@@ -28,8 +28,7 @@ export default class ShowQRCodeScreen extends Component {
       <View style={styles.container}>
         <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
           <View style={styles.getStartedContainer}>
-            <Text style={{marginBottom: 30}}>Dies ist dein persönlicher Code. Lass eine andere Person diesen Code
-              scannen, um dich als Kontaktperson hinzuzufügen.</Text>
+            <Text style={{marginBottom: 30}}>Scan QR-Code</Text>
             <QRCode value={deviceId}/>
             <Text style={{marginTop: 50, marginBottom: 10}}>Oder du scannst selbst den Code einer anderen Person.</Text>
             <Button

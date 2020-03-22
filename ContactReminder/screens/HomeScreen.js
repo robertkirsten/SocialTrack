@@ -13,7 +13,9 @@ import { ScrollView } from 'react-native-gesture-handler';
 import { Root, Popup } from 'popup-ui';
 import Constants from 'expo-constants';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import * as Elements from 'react-native-elements';
+import * as AwesomeButton from 'react-awesome-button';
+import { CustomButton } from '../components/customButton';
+
 import { RepositoryFactory } from '../API/RepositoryFactory';
 
 const { deviceId } = Constants;
@@ -93,40 +95,24 @@ export default class HomeScreen extends React.Component {
             <Text style={{ fontWeight: 'bold', fontSize: 20 }}>Sie haben sich infiziert? </Text>
             <Text style={styles.getStartedText}>Dann melden Sie dies bitte hier, um sich und andere zu schützen! </Text>
             <Text style={styles.getStartedText}> </Text>
-            <TouchableOpacity
-                style={{
-                  borderWidth: 1,
-                  borderColor: 'rgba(0,0,0,0.2)',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  width: 100,
-                  height: 100,
-                  backgroundColor: '#ff7b79',
-                  borderRadius: 50,
-                  text: 'SE',
-                }}
-                onPress={() => this.postInfectionMethod(deviceId)}
-            >
-              <Icon name={'close'} size={60} color="#ff0000" />
-            </TouchableOpacity>
-            <TouchableOpacity
-                style={{
-                  borderWidth: 1,
-                  borderColor: 'rgba(0,0,0,0.2)',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  width: 100,
-                  height: 100,
-                  backgroundColor: '#32ff15',
-                  borderRadius: 50,
-                  text: 'SE',
-                }}
+            <CustomButton
+                title="   Ich bin gesund!   "
                 onPress={() => this.postHealthenedMethod(deviceId)}
-            >
-              <Icon name={'check'} size={60} color="#ff0000" />
-            </TouchableOpacity>
+               // style={{ /* some styles for button */ }}
+                // textStyle={{ /* styles for button title */ }}
+            />
+
+            <Text>   </Text>
+            <Text>   </Text>
+            <CustomButton
+                id = "test"
+                title="   Ich bin krank!   "
+                onPress={() => this.postInfectionMethod(deviceId)}
+                style={{ backgroundColor: '#c00200', shadowColor: '#c00004' }}
+                // textStyle={{ /* styles for button title */ }}
+            />
             <Text style={styles.getStartedText}> </Text>
-            <Text style={{ fontWeight: 'bold' }}> Hier Klicken!</Text>
+
           </View>
         </ScrollView>
 
