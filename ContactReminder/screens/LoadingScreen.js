@@ -6,7 +6,6 @@ import {
 } from 'react-native';
 
 export default class LoadingScreen extends React.Component {
-
   render() {
     return(
       <View>

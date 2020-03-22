@@ -12,6 +12,7 @@ import Constants from 'expo-constants';
 import { RepositoryFactory } from '../API/RepositoryFactory';
 import LoadingScreen from './LoadingScreen';
 
+
 const deviceID = Constants.deviceId;
 const user = RepositoryFactory.get('user');
 
@@ -86,6 +87,7 @@ export default class SettingsScreen extends React.Component {
         <Root>
           <Text> </Text>
         </Root>
+
         <Input
           placeholder='INSERT FIRSTNAME'
           leftIcon={
