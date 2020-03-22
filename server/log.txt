@@ -1,0 +1,2 @@
+App listening on port 3000!
+Connected to instance/db.db database.

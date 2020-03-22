@@ -13,7 +13,7 @@ import { ScrollView } from 'react-native-gesture-handler';
 import { Root, Popup } from 'popup-ui';
 import Constants from 'expo-constants';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import * as AwesomeButton from 'react-awesome-button';
+
 import Dialog, {
   DialogButton,
   DialogContent,

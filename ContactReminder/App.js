@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {
-  Button, Platform, StatusBar, StyleSheet, View,
+  Button, Platform, StatusBar, StyleSheet, TouchableOpacity, View,
 } from 'react-native';
 import { SplashScreen } from 'expo';
 import * as Font from 'expo-font';
@@ -11,6 +11,8 @@ import BottomTabNavigator from './navigation/BottomTabNavigator';
 import useLinking from './navigation/useLinking';
 import ScanContactPersonScreen from './screens/ScanContactPersonScreen';
 import SettingsScreen from './screens/SettingsScreen';
+// import navigation from "react-awesome-button/demo/components/navigation/navigation";
+
 
 const spaceMonoFont = require('./assets/fonts/SpaceMono-Regular.ttf');
 
