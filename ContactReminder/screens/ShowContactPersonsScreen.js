@@ -3,7 +3,6 @@ import {
   SectionList, StyleSheet, Text, View, RefreshControl,
 } from 'react-native';
 import moment from 'moment';
-import { Popup } from 'popup-ui';
 import Constants from 'expo-constants';
 import { RepositoryFactory } from '../API/RepositoryFactory';
 import LoadingScreen from './LoadingScreen';
@@ -83,6 +82,10 @@ export default class ShowContactPersonsScreen extends React.Component {
     }
     return (
       <View style={styles.container}>
+        { personNamesWithTitle.length === 0
+        && <Text>Sie haben bisher keine Kontaktperson hinzugefügt.</Text>
+        }
+
         <SectionList
           refreshControl={
             <RefreshControl
