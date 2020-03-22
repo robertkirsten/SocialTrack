@@ -17,10 +17,10 @@ Speichere Personen mit denen du in Kontakt warst, indem du einfach mit der Socia
 
 ## Get Started
 
-* Run `npm install` in the `server` und `ContactReminder`
+* Run `npm install` in the `server` und `SocialTrack`
 * Run the server with `node server/server`.
 * Build the App with `expo start`.
 
 ## Links
 
-INSERT DEVPOST link here
+[Devpost](https://devpost.com/software/contactreminder)
