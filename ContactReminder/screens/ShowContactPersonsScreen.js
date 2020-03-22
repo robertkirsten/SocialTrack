@@ -6,6 +6,7 @@ import moment from 'moment';
 import { Popup } from 'popup-ui';
 import Constants from 'expo-constants';
 import { RepositoryFactory } from '../API/RepositoryFactory';
+import LoadingScreen from './LoadingScreen';
 
 const deviceID = Constants.deviceId;
 const contactedUsers = RepositoryFactory.get('contactedUsersRepository');
@@ -15,6 +16,7 @@ export default class ShowContactPersonsScreen extends React.Component {
     super(props);
 
     this.state = {
+      loading: true,
       personNamesWithTitle: [],
       refreshing: false,
     };
@@ -34,29 +36,27 @@ export default class ShowContactPersonsScreen extends React.Component {
   getContactedUsers() {
     return contactedUsers.getUsers(deviceID)
       .then((res) => {
+        // eslint-disable-next-line no-restricted-syntax
         for (const person of res.data) {
           person.time = moment(person.time);
         }
-        this.setState({ personNamesWithTitle: this.transformData(res.data) });
+        const transformedData = this.transformData(res.data);
+        this.setState({ personNamesWithTitle: transformedData, loading: false });
       })
       .catch((error) => {
-        Popup.show({
-          type: 'Danger',
-          callback: () => Popup.hide(),
-          title: 'Download failed',
-          textBody: 'Sorry! Could not get your recent(ly) contacted persons!',
-        });
         console.log('Error occured: ', error);
       });
   }
 
+  // eslint-disable-next-line class-methods-use-this
   transformData(contactPersonsList) {
     const persons = contactPersonsList.sort((a, b) => a.timestamp > b.timestamp);
     let currentDate = '';
     const personNamesWithTitle = [];
 
+    // eslint-disable-next-line no-restricted-syntax
     for (const person of persons) {
-      const personTime = moment(person.timestamp).locale('de').format('HH [Uhr] DD.MM.YYYY');
+      const personTime = moment(person.timestamp).format('HH [Uhr] DD.MM.YYYY');
 
       if (personTime !== currentDate) {
         currentDate = personTime;
@@ -77,7 +77,10 @@ export default class ShowContactPersonsScreen extends React.Component {
   }
 
   render() {
-    const { personNamesWithTitle } = this.state;
+    const { personNamesWithTitle, loading } = this.state;
+    if (loading) {
+      return <LoadingScreen />;
+    }
     return (
       <View style={styles.container}>
         <SectionList
@@ -89,7 +92,7 @@ export default class ShowContactPersonsScreen extends React.Component {
           }
           sections={personNamesWithTitle}
           renderItem={({ item }) => <Text
-            style={item.infected ? styles.itemInfected : styles.itemNotInfected}>{item.name}</Text>}
+          style={item.infected ? styles.itemInfected : styles.itemNotInfected}>{item.name}</Text>}
           renderSectionHeader={({ section }) => <Text style={styles.sectionHeader}>{section.title}</Text>}
           keyExtractor={(item, index) => index}
         />

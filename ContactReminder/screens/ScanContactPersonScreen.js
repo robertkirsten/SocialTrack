@@ -20,7 +20,7 @@ export default class ScanContactPersonScreen extends Component {
   constructor(props) {
     super(props);
 
-    this.isMounted = false;
+    this._isMounted = false;
 
     this.state = {
       hasPermission: null,
@@ -32,41 +32,23 @@ export default class ScanContactPersonScreen extends Component {
     try {
       console.log("HALLO");
       const res = await contactedUser.postcontactedUsers(deviceID, scannedId);
-/*
-      Popup.show({
-        type: 'Success',
-        callback: () => Popup.hide(),
-        title: 'Person successful scanned!',
-      });
-      console.log("Fetched successfully all contacted Users");
-      console.log(res.data);
-      */
-
 
     } catch (error) {
-      /*
-      Popup.show({
-        type: 'Danger',
-        callback: () => Popup.hide(),
-        title: 'Download failed',
-        textBody: 'Sorry! Could not get your recent(ly) contacted persons!',
-      });
-      */
       Alert.alert("Problem!", 'Bitte den QR-Code erneut scannen!',[{text: 'OK', onPress: () => console.log('OK Pressed')},]);
       console.log("Error occured: ", error);
     }
   }
 
   async componentDidMount() {
-    this.isMounted = true;
+    this._isMounted = true;
     const {status} = await Permissions.askAsync(Permissions.CAMERA);
-    if (this.isMounted) {
+    if (this._isMounted) {
       this.setState({hasPermission: status === 'granted'});
     }
   }
 
   async componentWillUnmount() {
-    this.isMounted = false;
+    this._isMounted = false;
   }
 
   handleBarCodeScanned = async ({type, data}) =>{
