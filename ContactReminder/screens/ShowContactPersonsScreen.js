@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {
-  SectionList, StyleSheet, Text, View,
+  SectionList, StyleSheet, Text, View, Button, RefreshControl
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { RectButton, ScrollView } from 'react-native-gesture-handler';
@@ -17,6 +17,7 @@ export default class ShowContactPersonsScreen extends React.Component {
     super(props);
     this.state = {
       personNamesWithTitle: [],
+      refreshing: false,
     };
   }
 
@@ -70,11 +71,24 @@ export default class ShowContactPersonsScreen extends React.Component {
     return personNamesWithTitle;
   }
 
+  _onRefresh = () => {
+    this.setState({ refreshing: true });
+    this.getContactedUsers().then(() => {
+      this.setState({ refreshing: false });
+    })
+  }
+
   render() {
     const { personNamesWithTitle } = this.state;
     return (
       <View style={styles.container}>
         <SectionList
+         refreshControl={
+            <RefreshControl
+              refreshing={this.state.refreshing}
+              onRefresh={this._onRefresh}
+            />
+          }
           sections={personNamesWithTitle}
           renderItem={({ item }) => <Text style={item.infected ? styles.itemInfected : styles.itemNotInfected}>{item.name}</Text>}
           renderSectionHeader={({ section }) => <Text style={styles.sectionHeader}>{section.title}</Text>}
