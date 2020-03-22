@@ -55,7 +55,7 @@ export default class ShowContactPersonsScreen extends React.Component {
 
     // eslint-disable-next-line no-restricted-syntax
     for (const person of persons) {
-      const personTime = moment(person.timestamp).format('HH [Uhr] DD.MM.YYYY');
+      const personTime = moment(person.timestamp).format('DD.MM.YYYY, HH [Uhr]');
 
       if (personTime !== currentDate) {
         currentDate = personTime;
