@@ -66,7 +66,6 @@ export default class HomeScreen extends React.Component {
       return infectedUser.postInfectedUser(userId)
         .then((res) => {
           this.setState({ infectedDialogVisible: true });
-          console.log(res.data);
         })
         .catch((error) => {
           console.log('Error occured: ', error);
@@ -80,7 +79,6 @@ export default class HomeScreen extends React.Component {
       return infectedUser.postHealthenedUser(userId)
         .then((res) => {
           this.setState({ healthyDialogVisible: true });
-          console.log(res.data);
         })
         .catch((error) => {
           Alert.alert('Das hat nicht geklappt!', 'BLABLA', [{ text: 'OK', onPress: () => console.log('OK Pressed') }]);
