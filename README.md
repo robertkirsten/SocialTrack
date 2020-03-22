@@ -24,4 +24,4 @@ Speichere Personen mit denen du in Kontakt warst, indem du einfach mit der Socia
 ## Links
 
 *  [Project page on Devpost](https://devpost.com/software/contactreminder)
-* [Video] (https://www.youtube.com/watch?v=LwxMjxBqiT4)
+* [Video](https://www.youtube.com/watch?v=LwxMjxBqiT4)
