@@ -1,18 +1,16 @@
+/* eslint-disable consistent-return */
+/* eslint-disable no-underscore-dangle */
 import * as React from 'react';
 import {
-  Image,
   Platform,
   StyleSheet,
   Text,
   View,
-  Button,
-  ToastAndroid,
-  TouchableOpacity, Alert,
+  Alert,
 } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
-import { Root, Popup } from 'popup-ui';
+import { Root } from 'popup-ui';
 import Constants from 'expo-constants';
-import Icon from 'react-native-vector-icons/FontAwesome';
 
 import Dialog, {
   DialogButton,
@@ -22,26 +20,41 @@ import Dialog, {
   SlideAnimation,
 } from 'react-native-popup-dialog';
 import { CustomButton } from '../components/customButton';
-
 import { RepositoryFactory } from '../API/RepositoryFactory';
+import LoadingScreen from './LoadingScreen';
 
 const { deviceId } = Constants;
-
 const infectedUser = RepositoryFactory.get('infectedUser');
+const userAPI = RepositoryFactory.get('user');
+
 export default class HomeScreen extends React.Component {
   constructor(props) {
     super(props);
     this._isMounted = false;
 
     this.state = {
+      infected: false,
+      loading: true,
       healthyDialogVisible: false,
       infectedDialogVisible: false,
     };
   }
 
+  setStateifMounted(obj) {
+    if (this._isMounted) {
+      this.setState(obj);
+    }
+  }
 
   componentDidMount() {
     this._isMounted = true;
+    userAPI.getUser(deviceId)
+      .then((res) => {
+        this.setStateifMounted({ infected: res.data.infected, loading: false });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }
 
   componentWillUnmount() {
@@ -52,50 +65,21 @@ export default class HomeScreen extends React.Component {
     if (this._isMounted) {
       return infectedUser.postInfectedUser(userId)
         .then((res) => {
-          /*
-          console.log('Infection succesfully added');
-          Popup.show({
-            type: 'Success',
-            callback: () => Popup.hide(),
-            title: 'Sie haben hiermit 1000 Leben gerettet! Dank Dir endet die Quarantäne!',
-          });
-          */
-
           this.setState({ infectedDialogVisible: true });
-
-          /* Alert.alert('Lebensretter!', 'Sie haben hiermit 1000 Leben gerettet! Dank Dir endet die Quarantäne!', [{
-            text: 'OK',
-            onPress: () => console.log('OK Pressed'),
-          }]); */
           console.log(res.data);
         })
         .catch((error) => {
-          Popup.show({
-            type: 'Danger',
-            callback: () => Popup.hide(),
-            title: 'Upload failed',
-            textBody: 'Sorry! Please upload again!',
-          });
           console.log('Error occured: ', error);
         });
     }
   }
 
+  // eslint-disable-next-line consistent-return
   postHealthenedMethod(userId) {
     if (this._isMounted) {
       return infectedUser.postHealthenedUser(userId)
         .then((res) => {
-          /*
-            console.log('Infection succesfully added');
-            Popup.show({
-              type: 'Success',
-              callback: () => Popup.hide(),
-              title: 'Sie haben hiermit 1000 Leben gerettet! Dank Dir endet die Quarantäne!',
-            });
-            */
           this.setState({ healthyDialogVisible: true });
-
-          // Alert.alert('Sie sind gesund!', 'BLABLA', [{ text: 'OK', onPress: () => console.log('OK Pressed') }]);
           console.log(res.data);
         })
         .catch((error) => {
@@ -106,6 +90,11 @@ export default class HomeScreen extends React.Component {
   }
 
   render() {
+    const { infected, loading } = this.state;
+    if (loading) {
+      return <LoadingScreen />;
+    }
+
     return (
       <Root>
         <View style={styles.container}>
@@ -115,7 +104,7 @@ export default class HomeScreen extends React.Component {
               slideFrom: 'bottom',
             })}
             onTouchOutside={() => {
-              this.setState({ healthyDialogVisible: false });
+              this.setStateifMounted({ healthyDialogVisible: false });
             }}
             dialogTitle={<DialogTitle title="Sie sind gesund!"/>}
             footer={
@@ -123,7 +112,7 @@ export default class HomeScreen extends React.Component {
                 <DialogButton
                   text="OK"
                   onPress={() => {
-                    this.setState({ healthyDialogVisible: false });
+                    this.setStateifMounted({ healthyDialogVisible: false });
                   }}
                 />
               </DialogFooter>
@@ -140,7 +129,7 @@ export default class HomeScreen extends React.Component {
               slideFrom: 'bottom',
             })}
             onTouchOutside={() => {
-              this.setState({ infectedDialogVisible: false });
+              this.setStateifMounted({ infectedDialogVisible: false });
             }}
             dialogTitle={<DialogTitle title="Sie sind infiziert!"/>}
             footer={
@@ -148,7 +137,7 @@ export default class HomeScreen extends React.Component {
                 <DialogButton
                   text="OK"
                   onPress={() => {
-                    this.setState({ infectedDialogVisible: false });
+                    this.setStateifMounted({ infectedDialogVisible: false });
                   }}
                 />
               </DialogFooter>
@@ -161,15 +150,16 @@ export default class HomeScreen extends React.Component {
 
           <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
             <View style={styles.getStartedContainer}>
-              <Text style={{ fontWeight: 'bold', fontSize: 20 }}>Sie haben sich infiziert? </Text>
+              <Text style={{ fontWeight: 'bold', fontSize: 20 }}>{infected ? 'Sie sind genesen?' : 'Sie haben sich infiziert?'} </Text>
               <Text style={styles.getStartedText}>Dann melden Sie dies bitte hier, um sich und andere zu
                 schützen! </Text>
               <Text style={styles.getStartedText}> </Text>
               <CustomButton
                 title="   Ich bin gesund!   "
-                onPress={() => this.postHealthenedMethod(deviceId)}
-                // style={{ /* some styles for button */ }}
-                // textStyle={{ /* styles for button title */ }}
+                onPress={() => {
+                  this.postHealthenedMethod(deviceId);
+                  this.setStateifMounted({ infected: false });
+                }}
               />
 
               <Text> </Text>
@@ -178,9 +168,18 @@ export default class HomeScreen extends React.Component {
                 id="test"
                 title="   Ich bin krank!   "
 
-                onPress={() =>  Alert.alert('Überprüfung', 'Sind Sie wirklich infiziert?', [{ text: 'Ja', onPress: () => this.postInfectionMethod(deviceId) }, { text: 'Nein', onPress: () => console.log("Nein Pressed")}])}
+                onPress={() => Alert.alert('Überprüfung', 'Sind Sie wirklich infiziert?', [
+                  {
+                    text: 'Ja',
+                    onPress: () => {
+                      this.postInfectionMethod(deviceId);
+                      this.setStateifMounted({ infected: true });
+                    },
+                  }, {
+                    text: 'Nein',
+                    onPress: () => console.log('Nein Pressed'),
+                  }])}
                 style={{ backgroundColor: '#c00200', shadowColor: '#c00004' }}
-                // textStyle={{ /* styles for button title */ }}
               />
               <Text style={styles.getStartedText}> </Text>
             </View>
