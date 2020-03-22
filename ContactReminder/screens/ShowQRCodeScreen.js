@@ -43,7 +43,8 @@ export default class ShowQRCodeScreen extends Component {
 
             <Text style={{
               marginBottom: 30, fontWeight: 'bold', fontSize: 35, textAlign: 'left',
-            }}>Scan QR-Code</Text>
+            }}>Kontaktperson hinzufügen</Text>
+            <Text>Scane den QR-Code einer anderen Person, um euch zu verbinden.</Text>
             <View style={styles.container2}>
             {/* <CustomQRCode codeStyle="circle" /> */}
             <CustomQRCode content={deviceId} />
@@ -75,7 +76,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: 'white',
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
   },
   Button: {
     fontSize: 50,

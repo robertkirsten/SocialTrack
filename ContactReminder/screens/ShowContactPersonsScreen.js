@@ -3,7 +3,6 @@ import {
   SectionList, StyleSheet, Text, View, RefreshControl,
 } from 'react-native';
 import moment from 'moment';
-import { Popup } from 'popup-ui';
 import Constants from 'expo-constants';
 import { RepositoryFactory } from '../API/RepositoryFactory';
 import LoadingScreen from './LoadingScreen';
@@ -56,7 +55,7 @@ export default class ShowContactPersonsScreen extends React.Component {
 
     // eslint-disable-next-line no-restricted-syntax
     for (const person of persons) {
-      const personTime = moment(person.timestamp).format('HH [Uhr] DD.MM.YYYY');
+      const personTime = moment(person.timestamp).format('DD.MM.YYYY, HH [Uhr]');
 
       if (personTime !== currentDate) {
         currentDate = personTime;
@@ -83,6 +82,10 @@ export default class ShowContactPersonsScreen extends React.Component {
     }
     return (
       <View style={styles.container}>
+        { personNamesWithTitle.length === 0
+        && <Text>Sie haben bisher keine Kontaktperson hinzugefügt.</Text>
+        }
+
         <SectionList
           refreshControl={
             <RefreshControl
