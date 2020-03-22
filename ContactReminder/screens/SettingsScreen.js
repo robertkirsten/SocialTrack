@@ -1,8 +1,8 @@
+/* eslint-disable no-underscore-dangle */
 import * as React from 'react';
 import {
   Text,
   View,
-  AsyncStorage,
   Button,
 } from 'react-native';
 import { Root, Popup } from 'popup-ui';
@@ -10,59 +10,55 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import { Input } from 'react-native-elements';
 import Constants from 'expo-constants';
 import { RepositoryFactory } from '../API/RepositoryFactory';
+import LoadingScreen from './LoadingScreen';
 
 const deviceID = Constants.deviceId;
 const user = RepositoryFactory.get('user');
-
 
 export default class SettingsScreen extends React.Component {
   constructor(props) {
     super(props);
 
-    this.isMounted = false;
+    this._isMounted = false;
 
     this.state = {
+      loading: true,
       firstname: '',
       lastname: '',
     };
   }
 
-  async componentDidMount() {
-    this.isMounted = true;
+  componentDidMount() {
+    this._isMounted = true;
+    console.log('test');
+    user.getUser(deviceID)
+      .then((res) => {
+        console.log("test", res.data);
+        if (res.data) {
+          console.log('already registered');
+          this.props.navigation.replace('Root');
+        } else {
+          console.log('not registered');
+          this.setState({ loading: false });
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }
 
   async componentWillUnmount() {
-    this.isMounted = false;
-  }
-
-  async _storeData() {
-    const { firstname, lastname } = this.state;
-    try {
-      await AsyncStorage.setItem('lastname', lastname);
-      await AsyncStorage.setItem('firstname', firstname);
-    } catch (error) {
-      // Error saving data
-    }
-    await this.postUser(deviceID);
-  }
-
-  async _retrieveData(key) {
-    try {
-      const value = await AsyncStorage.getItem(key);
-      if (value !== null) {
-        // Our data is fetched successfully
-        console.log(value);
-      }
-    } catch (error) {
-      // Error retrieving data
-    }
+    this._isMounted = false;
   }
 
   postUser(userid) {
     const { firstname, lastname } = this.state;
 
     return user.postUserData(userid, 0, firstname, lastname)
-      .then((res) => console.log('Fetched successfully all contacted Users'))
+      .then((res) => {
+        console.log('Fetched successfully all contacted Users');
+        this.props.navigation.replace('Root');
+      })
       .catch((error) => {
         Popup.show({
           type: 'Danger',
@@ -75,12 +71,16 @@ export default class SettingsScreen extends React.Component {
   }
 
   setStateIfMounted(obj) {
-    if (this.isMounted) {
+    if (this._isMounted) {
       this.setState(obj);
     }
   }
 
   render() {
+    const { loading } = this.state;
+    if (loading) {
+      return <LoadingScreen />;
+    }
     return (
       <View>
         <Root>
@@ -111,7 +111,7 @@ export default class SettingsScreen extends React.Component {
         />
         <Button
           title="SAVE"
-          onPress={() => this._storeData()}/>
+          onPress={() => this.postUser(deviceID)}/>
       </View>
     );
   }
