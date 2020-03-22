@@ -9,10 +9,16 @@ import {
 
 import { ScrollView } from 'react-native-gesture-handler';
 import * as Permissions from 'expo-permissions';
-//import QRCode from 'react-qr-code';
+// import QRCode from 'react-qr-code';
 import Constants from 'expo-constants';
-//import QRCode from 'react-native-qrcode';
-import QRCode from 'react-native-qrcode-generator';
+// import QRCode from 'react-native-qrcode';
+// import QRCode from 'react-native-qrcode-generator';
+// import QRCode from 'react-native-qrcode-svg';
+// import { QRCode } from 'react-native-custom-qr-codes-expo';
+// import SvgQRCode from 'react-native-qrcode-svg';
+import { QRCode as CustomQRCode } from 'react-native-custom-qr-codes-expo';
+
+
 const { deviceId } = Constants;
 
 export default class ShowQRCodeScreen extends Component {
@@ -28,7 +34,7 @@ export default class ShowQRCodeScreen extends Component {
     const { status } = await Permissions.askAsync(Permissions.CAMERA);
     this.setState({ hasPermission: status === 'granted' });
   }
-//<QRCode value={deviceId}/>
+
   render() {
     return (
       <View style={styles.container}>
@@ -39,11 +45,8 @@ export default class ShowQRCodeScreen extends Component {
               marginBottom: 30, fontWeight: 'bold', fontSize: 35, textAlign: 'left',
             }}>Scan QR-Code</Text>
             <View style={styles.container2}>
-            <QRCode
-                value={deviceId}
-                size={400}
-                bgColor='black'
-                fgColor='white'/>
+            {/* <CustomQRCode codeStyle="circle" /> */}
+            <CustomQRCode content={deviceId} />
             </View>
             <Text>  </Text>
             <Text>  </Text>
