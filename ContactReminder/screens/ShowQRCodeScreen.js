@@ -1,26 +1,30 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import {
   Text,
   View,
   StyleSheet,
   Button,
-  Platform
+  Platform,
 } from 'react-native';
-import {ScrollView} from 'react-native-gesture-handler';
+import { ScrollView } from 'react-native-gesture-handler';
 import * as Permissions from 'expo-permissions';
 import QRCode from 'react-qr-code';
 import Constants from 'expo-constants';
 
-const deviceId = Constants.deviceId;
+const { deviceId } = Constants;
 
 export default class ShowQRCodeScreen extends Component {
-  state = {
-    hasPermission: null,
-  };
+  constructor() {
+    super();
+
+    this.state = {
+      hasPermission: null,
+    };
+  }
 
   async componentDidMount() {
     const { status } = await Permissions.askAsync(Permissions.CAMERA);
-    this.setState({hasPermission: status === 'granted'});
+    this.setState({ hasPermission: status === 'granted' });
   }
 
   render() {
@@ -28,7 +32,9 @@ export default class ShowQRCodeScreen extends Component {
       <View style={styles.container}>
         <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
           <View style={styles.getStartedContainer}>
-            <Text style={{marginBottom: 30, fontWeight: 'bold', fontSize: 35, textAlign: 'left'}}>Scan QR-Code</Text>
+            <Text style={{
+              marginBottom: 30, fontWeight: 'bold', fontSize: 35, textAlign: 'left',
+            }}>Scan QR-Code</Text>
             <QRCode value={deviceId}/>
             <Text>  </Text>
             <Text>  </Text>
@@ -40,7 +46,7 @@ export default class ShowQRCodeScreen extends Component {
           </View>
         </ScrollView>
       </View>
-    )
+    );
   }
 }
 
@@ -108,7 +114,7 @@ const styles = StyleSheet.create({
     ...Platform.select({
       ios: {
         shadowColor: 'black',
-        shadowOffset: {width: 0, height: -3},
+        shadowOffset: { width: 0, height: -3 },
         shadowOpacity: 0.1,
         shadowRadius: 3,
       },

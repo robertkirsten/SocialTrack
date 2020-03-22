@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {
-  Button, Platform, StatusBar, StyleSheet, TouchableOpacity, View,
+  Button, Platform, StatusBar, StyleSheet, View,
 } from 'react-native';
 import { SplashScreen } from 'expo';
 import * as Font from 'expo-font';

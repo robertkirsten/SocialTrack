@@ -5,38 +5,38 @@ import {
   AsyncStorage,
   Button,
 } from 'react-native';
-import { Root, Popup } from 'popup-ui'
+import { Root, Popup } from 'popup-ui';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import {Input} from "react-native-elements";
-import { RepositoryFactory } from '../API/RepositoryFactory';
+import { Input } from 'react-native-elements';
 import Constants from 'expo-constants';
+import { RepositoryFactory } from '../API/RepositoryFactory';
 
 const deviceID = Constants.deviceId;
 const user = RepositoryFactory.get('user');
 
 
 export default class SettingsScreen extends React.Component {
-
   constructor(props) {
     super(props);
-    this._isMounted = false;
+
+    this.isMounted = false;
+
+    this.state = {
+      firstname: '',
+      lastname: '',
+    };
   }
 
-  async componentDidMount(){
-    this._isMounted = true;
+  async componentDidMount() {
+    this.isMounted = true;
   }
 
   async componentWillUnmount() {
-    this._isMounted = false;
+    this.isMounted = false;
   }
 
-  state = {
-    firstname: '',
-    lastname: '',
-  };
-
   async _storeData() {
-    const {firstname, lastname} = this.state;
+    const { firstname, lastname } = this.state;
     try {
       await AsyncStorage.setItem('lastname', lastname);
       await AsyncStorage.setItem('firstname', firstname);
@@ -58,30 +58,30 @@ export default class SettingsScreen extends React.Component {
     }
   }
 
-  postUser(userid){
+  postUser(userid) {
     const { firstname, lastname } = this.state;
 
-    return user.postUserData(userid,0, firstname,lastname)
-    .then(res => console.log("Fetched successfully all contacted Users"))
-    .catch(error => {
-      Popup.show({
-        type: 'Danger',
-        callback: () => Popup.hide(),
-        title: 'Upload failed',
-        textBody: 'Sorry! Please upload again!',
+    return user.postUserData(userid, 0, firstname, lastname)
+      .then((res) => console.log('Fetched successfully all contacted Users'))
+      .catch((error) => {
+        Popup.show({
+          type: 'Danger',
+          callback: () => Popup.hide(),
+          title: 'Upload failed',
+          textBody: 'Sorry! Please upload again!',
+        });
+        console.log('Error occured: ', error);
       });
-      console.log("Error occured: ", error);
-    });
   }
 
   setStateIfMounted(obj) {
-    if (this._isMounted) {
+    if (this.isMounted) {
       this.setState(obj);
     }
   }
 
   render() {
-    return(
+    return (
       <View>
         <Root>
           <Text> </Text>
@@ -95,7 +95,7 @@ export default class SettingsScreen extends React.Component {
               color='black'
             />
           }
-          onChangeText={text => this.setStateIfMounted({firstname: text})}
+          onChangeText={(text) => this.setStateIfMounted({ firstname: text })}
         />
         <Text> </Text>
         <Input
@@ -107,7 +107,7 @@ export default class SettingsScreen extends React.Component {
               color='black'
             />
           }
-          onChangeText={text => this.setStateIfMounted({lastname: text})}
+          onChangeText={(text) => this.setStateIfMounted({ lastname: text })}
         />
         <Button
           title="SAVE"
