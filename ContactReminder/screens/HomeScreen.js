@@ -154,7 +154,8 @@ export default class HomeScreen extends React.Component {
               <Text style={styles.getStartedText}>Dann melden Sie dies bitte hier, um sich und andere zu
                 schützen! </Text>
               <Text style={styles.getStartedText}> </Text>
-              <CustomButton
+              {infected
+                ? <CustomButton
                 title="   Ich bin gesund!   "
                 onPress={() => {
                   this.postHealthenedMethod(deviceId);
@@ -162,9 +163,7 @@ export default class HomeScreen extends React.Component {
                 }}
               />
 
-              <Text> </Text>
-              <Text> </Text>
-              <CustomButton
+                : <CustomButton
                 id="test"
                 title="   Ich bin krank!   "
 
@@ -181,6 +180,7 @@ export default class HomeScreen extends React.Component {
                   }])}
                 style={{ backgroundColor: '#c00200', shadowColor: '#c00004' }}
               />
+                }
               <Text style={styles.getStartedText}> </Text>
             </View>
           </ScrollView>
