@@ -83,11 +83,11 @@ export default class SettingsScreen extends React.Component {
     return (
       <View>
         <Root>
-          <Text> </Text>
+          <Text>Willkommen! Bitte gib deinen Namen ein, damit Kontaktpersonen dich erkennen können.</Text>
         </Root>
 
         <Input
-          placeholder='INSERT FIRSTNAME'
+          placeholder=' Vorname'
           leftIcon={
             <Icon
               name='user'
@@ -99,7 +99,7 @@ export default class SettingsScreen extends React.Component {
         />
         <Text> </Text>
         <Input
-          placeholder='INSERT LASTNAME'
+          placeholder=' Nachname'
           leftIcon={
             <Icon
               name='user'
