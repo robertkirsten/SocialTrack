@@ -50,6 +50,7 @@ export default function App(props) {
     loadResourcesAndDataAsync();
   }, []);
 
+  // eslint-disable-next-line react/prop-types
   if (!isLoadingComplete && !props.skipLoadingScreen) {
     return null;
   }
@@ -57,16 +58,8 @@ export default function App(props) {
     <View style={styles.container}>
       {Platform.OS === 'ios' && <StatusBar barStyle="default" />}
       <NavigationContainer ref={containerRef} initialState={initialNavigationState}>
-        <Stack.Navigator>
-          <Stack.Screen name="Root" component={BottomTabNavigator} options={({ navigation }) => ({
-            headerRight: () => (
-              <Button
-                onPress={() => navigation.push('SettingsScreen')}
-                title="Settings"
-                color="#00cc00"
-              />
-            ),
-          })}/>
+        <Stack.Navigator initialRouteName={'SettingsScreen'}>
+          <Stack.Screen name="Root" component={BottomTabNavigator} />
           <Stack.Screen name="ScanContactPersonScreen" component={ScanContactPersonScreen} />
           <Stack.Screen name="SettingsScreen" component={SettingsScreen} />
         </Stack.Navigator>
