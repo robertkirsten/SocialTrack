@@ -29,10 +29,11 @@ Geht man in einen Laden, fällt das der App auf und sie fragt, ob man in diesem 
 ## Technische Umsetzung
 
 ## ToDo
-* Finalisierung Frontend
-* timestamp und nach qr-code filtern in letzte Kontakte (+Headliner)
 * Fix App for iPhone (tritt nur noch teilweise auf)
-* Liste für kontaktierte Personen benutzen
+* add splashscreen while requesting
+* Serverrequest beim Start
+  * falls kein eintrag vorhanden settingsscreen zeigen
+  * sonst direkt ins menü
 
 ## Links
 
