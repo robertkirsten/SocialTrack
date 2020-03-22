@@ -9,10 +9,11 @@ import {
 
 import { ScrollView } from 'react-native-gesture-handler';
 import * as Permissions from 'expo-permissions';
-//import QRCode from 'react-qr-code';
+// import QRCode from 'react-qr-code';
 import Constants from 'expo-constants';
-//import QRCode from 'react-native-qrcode';
+// import QRCode from 'react-native-qrcode';
 import QRCode from 'react-native-qrcode-generator';
+
 const { deviceId } = Constants;
 
 export default class ShowQRCodeScreen extends Component {
@@ -28,7 +29,8 @@ export default class ShowQRCodeScreen extends Component {
     const { status } = await Permissions.askAsync(Permissions.CAMERA);
     this.setState({ hasPermission: status === 'granted' });
   }
-//<QRCode value={deviceId}/>
+
+  // <QRCode value={deviceId}/>
   render() {
     return (
       <View style={styles.container}>
@@ -37,7 +39,8 @@ export default class ShowQRCodeScreen extends Component {
 
             <Text style={{
               marginBottom: 30, fontWeight: 'bold', fontSize: 35, textAlign: 'left',
-            }}>Scan QR-Code</Text>
+            }}>Kontaktperson hinzufügen</Text>
+            <Text>Scane den QR-Code einer anderen Person, um euch zu verbinden.</Text>
             <View style={styles.container2}>
             <QRCode
                 value={deviceId}
@@ -72,7 +75,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: 'white',
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
   },
   Button: {
     fontSize: 50,
