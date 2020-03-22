@@ -13,6 +13,7 @@ import {Popup} from "popup-ui";
 import Constants from 'expo-constants';
 import Root from "popup-ui/src/basic/Root";
 
+
 const deviceID = Constants.deviceId;
 const contactedUser = RepositoryFactory.get('contactedUsersRepository');
 
@@ -82,6 +83,7 @@ export default class ScanContactPersonScreen extends Component {
           style={{flex: 1, marginBottom: 20}}
         />
       </View>
+
         </Root>
     );
   }
