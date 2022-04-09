@@ -32,7 +32,7 @@
     "expo-web-browser": "~8.0.0",
     "fs": "0.0.1-security",
     "lottie-react-native": "^3.3.2",
-    "moment": "^2.24.0",
+    "moment": "^2.29.2",
     "os": "^0.1.1",
     "popup-ui": "^1.0.10",
     "prop-types": "^15.7.2",
